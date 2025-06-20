@@ -5,6 +5,16 @@ const path = require('path');
 
 app.use("/search", require(path.join(__dirname, 'routes', 'searchTitle.js')));
 
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${process.env.API_KEY_TMDB}`
+    }
+}
+
+app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js')));
+
 app.get("/", (req, res) => {
     res.json({
         status: 'API is running',
