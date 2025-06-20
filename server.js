@@ -2,16 +2,13 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3300;
 const path = require('path');
+require('dotenv').config();
+
+app.use(express.json());
+
+app.use("/signup", require(path.join(__dirname, 'routes', 'signup.js')));
 
 app.use("/search", require(path.join(__dirname, 'routes', 'searchTitle.js')));
-
-const options = {
-    method: 'GET',
-    headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${process.env.API_KEY_TMDB}`
-    }
-}
 
 app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js')));
 

@@ -1,12 +1,5 @@
 require('dotenv').config();
-
-const options = {
-    method: 'GET',
-    headers: {
-        accept: 'application/json',
-        Authorization: `Bearer ${process.env.API_KEY_TMDB}`
-    }
-}
+const options = require('../config/apiOptions');
 
 const searchByGenre = async (req, res) => {
     const randomPage = Math.floor(Math.random() * 500 + 1);
