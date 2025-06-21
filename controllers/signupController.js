@@ -2,6 +2,9 @@ const bcrypt = require('bcrypt');
 const db = require('../db');
 
 const signup = async (req, res) => {
+    if (!req.body) {
+        return res.status(400).json({'message': 'Bad data'});
+    }
     const {username, password, email} = req.body;
     if (!username || !password || !email) {
         return res.status(400).json({'message': 'Bad data'});
