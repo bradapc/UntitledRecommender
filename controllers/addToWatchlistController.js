@@ -1,13 +1,13 @@
 const db = require('../db');
 const options = require('../config/apiOptions');
 
-const handleAddToWhitelist = async (req, res) => {
+const handleAddToWatchlist = async (req, res) => {
     if (!req.body) {
         return res.status(400).json({"message": 'Request body missing or empty'});
     }
     const {movieId} = req.body;
     if (!movieId) {
-        return res.status(400).json({"message": 'Whitelist add must include movieId'});
+        return res.status(400).json({"message": 'Watchlist add must include movieId'});
     }
 
     const searchResult = await searchById(movieId);
@@ -24,7 +24,7 @@ const handleAddToWhitelist = async (req, res) => {
         return res.status(500).json({"message": "Error: Server error when attempting to add to database"});
     }
 
-    return res.status(200).json({"message": `Added movie ${movieId} to whitelist`});
+    return res.status(200).json({"message": `Added movie ${movieId} to Watchlist`});
 }
 
 const searchById = async (id) => {
@@ -33,4 +33,4 @@ const searchById = async (id) => {
     return jsonObj;
 };
 
-module.exports = {handleAddToWhitelist};
+module.exports = {handleAddToWatchlist};

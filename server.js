@@ -16,7 +16,7 @@ app.use("/search", require(path.join(__dirname, 'routes', 'searchTitle.js')));
 app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js')));
 
 app.use(verifyJWT);
-app.use("/addToWhitelist", require(path.join(__dirname, 'routes', 'addToWhitelist.js')));
+app.use("/watchlist", require(path.join(__dirname, 'routes', 'watchlist.js')));
 
 app.get("/", (req, res) => {
     res.json({
