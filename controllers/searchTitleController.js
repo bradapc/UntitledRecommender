@@ -1,14 +1,18 @@
 require('dotenv').config();
-const options = require('../config/apiOptions');
+const searchAPI = require('../services/searchAPI');
 
 const searchByTitle = async (req, res) => {
-    if (!req || !req.query.title) {
-        return res.status(400).json({"message": "Invalid title"});
+    if (!req || (!req.query.title && !req.query.id)) {
+        return res.status(400).json({"message": "Error: You must supply an id or a title"});
     }
     
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${req.query.title}&include_adult=true&language=en-US&page=1`, options)
-    const jsonObj = await response.json();
-    return res.status(200).json({jsonObj})
+    if (req.query.id) {
+        const movieResult = await searchAPI.searchById(req.query.id);
+        return res.status(200).json({movieResult});
+    } else if (req.query.title) {
+        const movieResult = await searchAPI.searchByTitle(req.query.title);
+        return res.status(200).json({movieResult})
+    }
 }
 
 module.exports = {searchByTitle};

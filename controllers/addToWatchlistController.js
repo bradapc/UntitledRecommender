@@ -1,5 +1,5 @@
 const db = require('../db');
-const options = require('../config/apiOptions');
+const searchAPI = require('../services/searchAPI');
 
 const handleAddToWatchlist = async (req, res) => {
     if (!req.body) {
@@ -10,7 +10,7 @@ const handleAddToWatchlist = async (req, res) => {
         return res.status(400).json({"message": 'Watchlist add must include movieId'});
     }
 
-    const searchResult = await searchById(movieId);
+    const searchResult = await searchAPI.searchById(movieId);
     if (searchResult && 'success' in searchResult && searchResult.success === false) {
         return res.status(400).json({"message": 'Movie could not be found.'});
     }
@@ -26,11 +26,5 @@ const handleAddToWatchlist = async (req, res) => {
 
     return res.status(200).json({"message": `Added movie ${movieId} to Watchlist`});
 }
-
-const searchById = async (id) => {
-    const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
-    const jsonObj = await response.json();
-    return jsonObj;
-};
 
 module.exports = {handleAddToWatchlist};
