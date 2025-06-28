@@ -12,7 +12,8 @@ app.use(cookieParser());
 
 app.use("/login", require(path.join(__dirname, 'routes', 'login.js')));
 app.use("/signup", require(path.join(__dirname, 'routes', 'signup.js')));
-app.use("/search", require(path.join(__dirname, 'routes', 'searchTitle.js')));
+app.use("/discover", require(path.join(__dirname, 'routes', 'discover.js')));
+app.use("/search/title", require(path.join(__dirname, 'routes', 'searchTitle.js')));
 app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js')));
 
 app.use(verifyJWT);

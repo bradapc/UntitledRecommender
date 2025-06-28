@@ -14,7 +14,7 @@ const verifyJWT = (req, res, next) => {
         token,
         process.env.JWT_SECRET,
         (err, decoded) => {
-            if (err) return res.sendStatus(403);
+            if (err) return res.status(403).json({"message": "You must be logged in."});
             req.userId = decoded.userId;
             next();
         }
