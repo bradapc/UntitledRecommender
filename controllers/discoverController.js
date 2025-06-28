@@ -3,12 +3,12 @@ const discoverUrlBase = "https://api.themoviedb.org/3/discover/movie?include_adu
 const numQueries = 5;
 
 const discoverMovie = async (req, res) => {
-    if (!req.body) {
+    if (Object.keys(req.query).length === 0) {
         const movieRes = await getRandomMovieBuffer();
         return res.status(200).json(movieRes);
     };
 
-    const discoverUrl = await getParameterizedDiscoverUrl(req.body);
+    const discoverUrl = await getParameterizedDiscoverUrl(req.query);
     if (!discoverUrl) {
         return res.status(400).json({"message": "No results found with filter parameters."});
     } else if (discoverUrl.hasOwnProperty("error")) {
@@ -18,9 +18,9 @@ const discoverMovie = async (req, res) => {
     let movieBuffer = await getParameterizedMovieBuffer(discoverUrl);
     let yearFilteredMovies;
 
-    if ((req.body.maxYear || req.body.minYear) && req.body.maxYear != req.body.minYear) {
-        const minYear = req.body.minYear ? req.body.minYear : 0;
-        const maxYear = req.body.maxYear ? req.body.maxYear : 3000;
+    if ((req.query.maxYear || req.query.minYear) && req.query.maxYear != req.query.minYear) {
+        const minYear = req.query.minYear ? req.query.minYear : 0;
+        const maxYear = req.query.maxYear ? req.query.maxYear : 3000;
 
         yearFilteredMovies = movieBuffer.filter(movie => {
             const year = movie.release_date.split("-")[0];
@@ -55,13 +55,14 @@ const getParameterizedMovieBuffer = async (discoverUrl) => {
 const getParameterizedDiscoverUrl = async (filterParams) => {
     let discoverUrl = discoverUrlBase;
     if (filterParams.genre) {
-        if (getAvailableGenres().includes(filterParams.genre)) {
-            const genreIds = Array.isArray(filterParams.genre) ? filterParams.genre : [filterParams.genre];
-            const genreStr = genreIds.join("|");
-            discoverUrl += `&with_genres=${genreStr}`;
-        } else {
-            return {"error": "Invalid genre in filter query"};
-        }
+        const genreIds = filterParams.genre.split(',');
+        genreIds.forEach(id => {
+            if (!getAvailableGenres().includes(Number(id))) {
+                return {"error": "Invalid genre in filter query"};
+            }
+        });
+        const genreStr = genreIds.join("|");
+        discoverUrl += `&with_genres=${genreStr}`;
     }
 
     if (filterParams.minYear && filterParams.maxYear && (filterParams.minYear === filterParams.maxYear)) {
