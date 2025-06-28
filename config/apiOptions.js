@@ -1,3 +1,5 @@
+let availableGenres = [];
+
 const options = {
     method: 'GET',
     headers: {
@@ -5,6 +7,18 @@ const options = {
         Authorization: `Bearer ${process.env.API_KEY_TMDB}`
     }
 }
+
+const updateAvailableGenres = async () => {
+    const result = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options);
+    const resJson = await result.json();
+    availableGenres = resJson.genres.map(genre => {
+        return genre.id;
+    });
+};
+
+const getAvailableGenres = () => {
+    return availableGenres;
+};
 
 const getTotalPages = async (discoverUrl) => {
     const result = await fetch(discoverUrl, options);
@@ -32,4 +46,4 @@ const getRandomPage = (totalPages) => {
     return Math.floor(Math.random() * totalPages + 1);
 };
 
-module.exports = {options, getRandomPage, parseMovieJson, getTotalPages};
+module.exports = {options, getRandomPage, parseMovieJson, getTotalPages, updateAvailableGenres, getAvailableGenres};

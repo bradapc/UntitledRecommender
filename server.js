@@ -5,6 +5,7 @@ const path = require('path');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const verifyJWT = require('./middleware/verifyJWT');
+const apiOptions = require(path.join(__dirname, 'config', 'apiOptions.js'));
 
 app.use(express.json());
 
@@ -28,4 +29,5 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    apiOptions.updateAvailableGenres();
 });
