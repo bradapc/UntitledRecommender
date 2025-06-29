@@ -18,6 +18,10 @@ const handleAddToWatchlist = async (req, res) => {
     const priority = (req.body.priority) ? req.body.priority : 5;
 
     try {
+        const movieExists = await db.query("SELECT id FROM movie WHERE id = $1", [movieId]);
+        if (!movieExists.rows[0]) {
+            await db.query("INSERT INTO movie (id, title, poster_path, release_date, overview) VALUES ($1, $2, $3, $4, $5)", [movieId, searchResult.title, searchResult.poster_path, searchResult.release_date, searchResult.overview]);
+        }
         const insertResult = await db.query("INSERT INTO watchlist (user_id, movie_id, priority) VALUES ($1, $2, $3)", [req.userId, movieId, priority]);
     } catch (err) {
         console.error(err);
