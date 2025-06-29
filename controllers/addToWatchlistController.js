@@ -18,17 +18,25 @@ const handleAddToWatchlist = async (req, res) => {
     const priority = (req.body.priority) ? req.body.priority : 5;
 
     try {
+        await db.query("BEGIN");
+
         const movieExists = await db.query("SELECT id FROM movie WHERE id = $1", [movieId]);
         if (!movieExists.rows[0]) {
             await db.query("INSERT INTO movie (id, title, poster_path, release_date, overview) VALUES ($1, $2, $3, $4, $5)", [movieId, searchResult.title, searchResult.poster_path, searchResult.release_date, searchResult.overview]);
+            for (const genre of searchResult.genres) {
+                await db.query("INSERT INTO movie_genre (movie_id, genre_id) VALUES ($1, $2)", [movieId, genre.id])
+            }
         }
-        const insertResult = await db.query("INSERT INTO watchlist (user_id, movie_id, priority) VALUES ($1, $2, $3)", [req.userId, movieId, priority]);
+        await db.query("INSERT INTO watchlist (user_id, movie_id, priority) VALUES ($1, $2, $3)", [req.userId, movieId, priority]);
+
+        await db.query("COMMIT");
     } catch (err) {
+        await db.query("ROLLBACK");
         console.error(err);
         return res.status(500).json({"message": "Error: Server error when attempting to add to database"});
     }
 
-    return res.status(200).json({"message": `Added movie ${movieId} to Watchlist`});
+    return res.status(200).json({"message": `Added movie ${movieId} to user ${req.userId}'s watchlist`});
 }
 
 module.exports = {handleAddToWatchlist};
