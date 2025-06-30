@@ -19,6 +19,7 @@ app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js'
 
 app.use(verifyJWT);
 app.use("/watchlist", require(path.join(__dirname, 'routes', 'watchlist.js')));
+app.use("/seen", require(path.join(__dirname, 'routes', 'seen.js')));
 
 app.get("/", (req, res) => {
     res.json({
