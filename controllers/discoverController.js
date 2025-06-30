@@ -1,5 +1,5 @@
 const {options, getRandomPage, parseMovieJson, getTotalPages, getAvailableGenres} = require('../config/apiOptions');
-const discoverUrlBase = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&with_original_language=en"
+const discoverUrlBase = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false"
 const numQueries = 5;
 
 const discoverMovie = async (req, res) => {
@@ -69,6 +69,10 @@ const getParameterizedDiscoverUrl = async (filterParams) => {
         discoverUrl += `&year=${filterParams.minYear}`;
     }
 
+    if (filterParams.englishOnly) {
+        discoverUrl += '&original_language=en-US&language=en-US';
+    }
+
     const totalPages = await getTotalPages(discoverUrl);
     if (totalPages == 0) {
         return undefined;
@@ -85,7 +89,7 @@ const getRandomMovieBuffer = async () => {
             rand = getRandomPage();
         }
         visitedPages.push(rand);
-        const result = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${rand}&with_original_language=en`, options)
+        const result = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&page=${rand}`, options)
         const resJson = await result.json();
         const parsedResJson = parseMovieJson(resJson);
         parsedResJson.forEach(movie => {
