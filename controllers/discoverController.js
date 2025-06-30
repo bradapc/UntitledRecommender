@@ -1,6 +1,14 @@
 const {options, getRandomPage, parseMovieJson, getTotalPages, getAvailableGenres} = require('../config/apiOptions');
 const discoverUrlBase = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false"
 const numQueries = 5;
+const sortByOptions = [
+  "popularity.asc",
+  "popularity.desc",
+  "vote_average.asc",
+  "vote_average.desc",
+  "vote_count.asc",
+  "vote_count.desc"
+];
 
 const discoverMovie = async (req, res) => {
     if (Object.keys(req.query).length === 0) {
@@ -71,6 +79,10 @@ const getParameterizedDiscoverUrl = async (filterParams) => {
 
     if (filterParams.englishOnly) {
         discoverUrl += '&original_language=en-US&language=en-US';
+    }
+
+    if (filterParams.sortBy && sortByOptions.includes(filterParams.sortBy)) {
+        discoverUrl += `&sort_by=${filterParams.sortBy}`;
     }
 
     const totalPages = await getTotalPages(discoverUrl);
