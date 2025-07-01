@@ -9,6 +9,7 @@ const sortByOptions = [
   "vote_count.asc",
   "vote_count.desc"
 ];
+const db = require('../db');
 
 const discoverMovie = async (req, res) => {
     if (Object.keys(req.query).length === 0) {
@@ -36,6 +37,16 @@ const discoverMovie = async (req, res) => {
         });
         movieBuffer = yearFilteredMovies;
     }
+
+    //If logged in, don't show movies in the user's seen movies list
+    if (req.userId) {
+        const seenMoviesResult = await db.query('SELECT movie_id FROM movies_seen WHERE user_id = $1', [req.userId]);
+        if (seenMoviesResult.rowCount > 0) {
+            const seenMovieIds = seenMoviesResult.rows.map(row => row.movie_id);
+            movieBuffer = movieBuffer.filter(movie => !seenMovieIds.includes(movie.id));
+        }
+    }
+
     return res.status(200).json(movieBuffer);
 };
 
