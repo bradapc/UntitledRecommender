@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const addToWatchlistController = require('../controllers/addToWatchlistController');
-const getWatchlistController = require('../controllers/getWatchlistController');
+const watchlistController = require('../controllers/watchlistController');
 
-router.get('/', getWatchlistController.getWatchlist);
-router.post('/', addToWatchlistController.handleAddToWatchlist);
+router.get('/', watchlistController.getWatchlist);
+router.post('/', watchlistController.handleAddToWatchlist);
 
 module.exports = router;
