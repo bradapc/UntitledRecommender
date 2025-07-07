@@ -9,7 +9,6 @@ function App() {
   const handleDiscoverRequest = async () => {
       try {
         const response = await fetch(`${API_URL}/discover`);
-        console.log(API_URL);
         const result = await response.json();
         setDiscover(result);
       } catch (err) {
@@ -24,8 +23,15 @@ function App() {
   return (
     <div className="App">
         <Header />
-        {discover ? discover.map(movie => (
-            <p>{movie.name}</p>
+        {discover.length ? discover.map(movie => (
+            <div>
+            <p key={movie.id}>
+              {movie.title}
+            </p>
+              <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+              alt="Movie Poster"
+              style={{width: '300px', height: '300px'}}/>
+            </div>
         ))
       : <p>No movies found.</p>}
     </div>

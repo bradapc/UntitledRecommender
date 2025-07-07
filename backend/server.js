@@ -6,6 +6,12 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const verifyJWT = require('./middleware/verifyJWT');
 const apiOptions = require(path.join(__dirname, 'config', 'apiOptions.js'));
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 app.use(express.json());
 
