@@ -39,6 +39,17 @@ const handleAddToWatchlist = async (req, res) => {
     return res.status(200).json({"message": `Added movie ${movieId} to user ${req.userId}'s watchlist`});
 }
 
+const handleDelete = async (req, res) => {
+    const movieId = req.params.id;
+    try {
+        const result = db.query('DELETE FROM watchlist WHERE user_id = $1 AND movie_id = $2', [req.userId, req.params.id]);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({"message": "Internal server error"});
+    }
+    return res.sendStatus(200);
+};
+
 const getWatchlist = async (req, res) => {
     if (!req.userId) {
         return res.status(401).json({"message": 'Unauthorized: userId missing'});
@@ -58,9 +69,9 @@ const getWatchlist = async (req, res) => {
 const mergeOnId = (watchlist, movies) => {
     return watchlist.map(watch => {
         const movie = movies.find(m => m.id === watch.movie_id) || {};
-        movies.forEach(movie => delete movie.id);
+        delete movie.id;
         return {...watch, ...movie};
     });
 };
 
-module.exports = {handleAddToWatchlist, getWatchlist};
+module.exports = {handleAddToWatchlist, getWatchlist, handleDelete};
