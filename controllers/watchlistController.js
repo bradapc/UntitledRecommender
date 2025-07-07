@@ -45,11 +45,21 @@ const getWatchlist = async (req, res) => {
     }
     try {
         const dbres = await db.query('SELECT * FROM watchlist WHERE user_id = $1', [req.userId]);
-        return res.status(200).json(dbres.rows);
+        const movieIds = dbres.rows.map(movie => movie.movie_id);
+        const movieInfo = await db.query('SELECT * FROM movie WHERE id = ANY($1::int[])', [movieIds]);
+        const combined = mergeOnId(dbres.rows, movieInfo.rows);
+        return res.status(200).json(combined);
     } catch (err) {
         console.error(err);
         return res.status(500).json({"message": "Internal server error"});
     }
+};
+
+const mergeOnId = (watchlist, movies) => {
+    return watchlist.map(watch => {
+        const movie = movies.find(m => m.id === watch.movie_id) || {};
+        return {...watch, ...movie};
+    });
 };
 
 module.exports = {handleAddToWatchlist, getWatchlist};
