@@ -39,6 +39,7 @@ const Discover = () => {
 
     const handleScrollForward = () => {
         if (currentIndex === discover.length - 1) {
+            setRequestNewDiscover(!requestNewDiscover);
             return setCurrentIndex(0);
         }
         return setCurrentIndex(currentIndex+1);
