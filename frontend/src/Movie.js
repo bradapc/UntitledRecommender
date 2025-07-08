@@ -15,9 +15,10 @@ const Movie = ({movie}) => {
         alt="Movie Poster"
         className="MoviePoster"></img>
         <h2 className="movie-title">{movie.title}</h2>
-        <span>{movie.release_date}</span>
-        {movie.overview.length < 250 ? <span>{movie.overview}</span> : (
-          <div>
+        <span className="movie-release">{movie.release_date}</span>
+        {movie.overview.length < 250 ?
+        <span className="movie-overview">{movie.overview}</span> : (
+          <div className="movie-overview">
             <span>{movie.overview.slice(0, movie.overview.slice(0, 250).lastIndexOf(' '))}...</span>
             <span className="readMoreText"> read more</span>
           </div>
