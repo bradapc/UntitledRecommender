@@ -6,7 +6,7 @@ const FilterSelector = () => {
     const {sortBy} = useContext(DataContext);
 
   return (
-    <div className="FilterSelector">
+    <form className="FilterSelector">
         <span className="genreWrapperLabel">Genres</span>
         <div className="genreFilterWrapper">
                 {Object.keys(genres).map((key) => (
@@ -18,9 +18,9 @@ const FilterSelector = () => {
             </div>
         <div className="yearFilterWrapper">
             <label htmlFor="minYear">Min Year</label>
-            <input type="text" className="yearBox"></input>
+            <input type="text" className="yearBox" placeholder="0000"></input>
             <label htmlFor="maxYear">Max Year</label>
-            <input type="text" className="yearBox"></input>
+            <input type="text" className="yearBox" placeholder={new Date().getFullYear()}></input>
             <label htmlFor="sortByOption">Sort By</label>
         {sortBy.length > 0 && 
         <select name="sortByOption">
@@ -30,8 +30,11 @@ const FilterSelector = () => {
         </select>
          }
         </div>
-        
-    </div>
+        <div className="FilterButtonWrapper">
+            <button className="FilterSelectorButton" type="submit">Filter</button>
+            <button className="FilterSelectorButton" type="reset">Reset</button>
+        </div>
+    </form>
   )
 }
 

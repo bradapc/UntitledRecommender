@@ -187,6 +187,10 @@ h1, h2, h3, h4, h5, p {
   background-color: #f1f1f1;
 }
 
+.yearBox::placeholder {
+  opacity: 0.7;
+}
+
 .FilterSelector {
   margin-top: 16px;
   border-radius: 12px;
@@ -213,4 +217,27 @@ h1, h2, h3, h4, h5, p {
   font-size: 1.2rem;
   font-weight: 600;
   color: #b0b0b0;
+}
+
+.FilterButtonWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 16px;
+}
+
+.FilterSelectorButton {
+  border-radius: 16px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  background-color:#3aaaff;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s, transform 0.1s ease-in-out;
+}
+
+.FilterSelectorButton:hover {
+  background-color: #65caff;
+  transition: background-color 0.2s;
 }

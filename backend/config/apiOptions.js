@@ -1,12 +1,13 @@
 let availableGenres = [];
 let availableGenresMap = [];
 const sortByOptions = [
-  "popularity.asc",
-  "popularity.desc",
-  "vote_average.asc",
-  "vote_average.desc",
-  "vote_count.asc",
-  "vote_count.desc"
+    "random",
+    "popularity.desc",
+    "popularity.asc",
+    "vote_average.desc",
+    "vote_average.asc",
+    "vote_count.desc",
+    "vote_count.asc"
 ];
 
 const options = {

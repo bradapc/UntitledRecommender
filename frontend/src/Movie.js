@@ -17,6 +17,7 @@ const Movie = ({movie}) => {
           {!isLoaded && <div className="placeholder-movie-poster">Loading...</div>}
           <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
           className="MoviePoster"
+          alt="Movie Poster"
           onLoad={() => setIsLoaded(true)}></img>
         </div>
         <h2 className="movie-title">{movie.title}</h2>
