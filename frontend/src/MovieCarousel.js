@@ -1,5 +1,4 @@
 const MovieCarousel = ({currentMovie, handleScrollBack, handleScrollForward}) => {
-    console.log(currentMovie);
   return (
     <div className="MovieCarousel">
         <button className="carousel-arrow carousel-arrow--prev"

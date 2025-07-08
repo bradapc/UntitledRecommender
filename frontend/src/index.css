@@ -64,6 +64,25 @@ code {
   transition: opacity 100ms;
 }
 
+.genreTags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0;
+  user-select: none;
+}
+
+.genreTag {
+  padding: 6px 12px;
+  border-radius: 16px;
+  background-color: #444;
+  color: #fff;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .readMoreText {
   color: rgb(119, 0, 255);
 }

@@ -1,4 +1,5 @@
 let availableGenres = [];
+let availableGenresMap = [];
 
 const options = {
     method: 'GET',
@@ -11,10 +12,15 @@ const options = {
 const updateAvailableGenres = async () => {
     const result = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options);
     const resJson = await result.json();
+    availableGenresMap = resJson;
     availableGenres = resJson.genres.map(genre => {
         return genre.id;
     });
 };
+
+const getAvailableGenresMap = () => {
+    return availableGenresMap;
+}
 
 const getAvailableGenres = () => {
     return availableGenres;
@@ -46,4 +52,4 @@ const getRandomPage = (totalPages) => {
     return Math.floor(Math.random() * totalPages + 1);
 };
 
-module.exports = {options, getRandomPage, parseMovieJson, getTotalPages, updateAvailableGenres, getAvailableGenres};
+module.exports = {options, getRandomPage, parseMovieJson, getTotalPages, updateAvailableGenres, getAvailableGenres, getAvailableGenresMap};

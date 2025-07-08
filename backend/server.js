@@ -23,6 +23,9 @@ app.use("/discover", require('./middleware/checkJWT'), require(path.join(__dirna
 app.use("/popular", require(path.join(__dirname, 'routes', 'popular.js')));
 app.use("/search/title", require(path.join(__dirname, 'routes', 'searchTitle.js')));
 app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js')));
+app.get('/genres', (req, res) => {
+    return res.status(200).json(apiOptions.getAvailableGenresMap());
+});
 
 app.use("/users", require(path.join(__dirname, 'routes', 'users')));
 

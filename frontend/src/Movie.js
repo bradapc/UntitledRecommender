@@ -1,6 +1,16 @@
+import {useContext} from 'react';
+import { DataContext } from './context/DataContext';
+
 const Movie = ({movie}) => {
+  const {genres} = useContext(DataContext);
+
   return (
     <div className="Movie">
+        <div className="genreTags">
+            {movie.genre_ids.map(id => (
+                <span className="genreTag">{genres[id]} </span>
+            ))}
+        </div>
         <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
         alt="Movie Poster"
         className="MoviePoster"></img>
@@ -12,7 +22,6 @@ const Movie = ({movie}) => {
             <span className="readMoreText"> read more</span>
           </div>
           )}
-        <p>{movie.genre_ids.join(', ')}</p>
     </div>
   )
 }
