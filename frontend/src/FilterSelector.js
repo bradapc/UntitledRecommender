@@ -1,29 +1,55 @@
-import {useContext} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import {DataContext} from './context/DataContext';
 
-const FilterSelector = () => {
+const FilterSelector = ({
+    sortBySelection, setSortBySelection, genresSelection, setGenresSelection, minYearSelection, setMinYearSelection, maxYearSelection, setMaxYearSelection, handleFilterSubmit
+}) => {
     const {genres} = useContext(DataContext);
     const {sortBy} = useContext(DataContext);
+    const [genreCheckboxes, setGenreCheckboxes] = useState([]);
+
+    const handleCheckedGenre = (e) => {
+        const updatedGenreCheckboxes = genreCheckboxes.map(genreCbx => 
+            genreCbx.id === e.target.id ?
+            {...genreCbx, checked: !genreCbx.checked}
+            : genreCbx
+        );
+        setGenreCheckboxes(updatedGenreCheckboxes);
+    };
+
+    useEffect(() => {
+        const checkedGenres = genreCheckboxes.filter(genre => genre.checked).map(genre => genre.id);
+        setGenresSelection(checkedGenres);
+    }, [genreCheckboxes, setGenresSelection]);
+
+    useEffect(() => {
+        setGenreCheckboxes(Object.keys(genres).map(key => ({
+        id: key,
+        name: genres[key],
+        checked: false
+        })))
+    }, [genres])
+
 
   return (
     <form className="FilterSelector">
         <span className="genreWrapperLabel">Genres</span>
         <div className="genreFilterWrapper">
-                {Object.keys(genres).map((key) => (
-                    <div key={key}>
-                        <label htmlFor={key}>{genres[key]}</label>
-                        <input type="checkbox"></input>
+                {genreCheckboxes.map(genre => (
+                    <div key={genre.id}>
+                        <label htmlFor={genre.id}>{genre.name}</label>
+                        <input type="checkbox" checked={genre.checked} id={genre.id} onChange={(e) => handleCheckedGenre(e)}></input>
                     </div>
                 ))}
             </div>
         <div className="yearFilterWrapper">
             <label htmlFor="minYear">Min Year</label>
-            <input type="text" className="yearBox" placeholder="0000"></input>
+            <input type="text" className="yearBox" placeholder="0000" value={minYearSelection} onChange={(e) => setMinYearSelection(e.target.value)}></input>
             <label htmlFor="maxYear">Max Year</label>
-            <input type="text" className="yearBox" placeholder={new Date().getFullYear()}></input>
+            <input type="text" className="yearBox" placeholder={new Date().getFullYear()} value={maxYearSelection} onChange={(e) => setMaxYearSelection(e.target.value)}></input>
             <label htmlFor="sortByOption">Sort By</label>
         {sortBy.length > 0 && 
-        <select name="sortByOption">
+        <select name="sortByOption" value={sortBySelection} onChange={(e) => setSortBySelection(e.target.value)}>
             {sortBy.map((sortOpt, index) => (
                 <option value={sortOpt} key={index}>{sortOpt}</option>
             ))}
@@ -31,7 +57,7 @@ const FilterSelector = () => {
          }
         </div>
         <div className="FilterButtonWrapper">
-            <button className="FilterSelectorButton" type="submit">Filter</button>
+            <button className="FilterSelectorButton" type="submit" onClick={(e) => handleFilterSubmit(e)}>Filter</button>
             <button className="FilterSelectorButton" type="reset">Reset</button>
         </div>
     </form>

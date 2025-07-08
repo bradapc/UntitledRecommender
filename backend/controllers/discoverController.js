@@ -84,7 +84,7 @@ const getParameterizedDiscoverUrl = async (filterParams) => {
         discoverUrl += '&original_language=en-US&language=en-US';
     }
 
-    if (filterParams.sortBy && getSortByOptions.includes(filterParams.sortBy)) {
+    if (filterParams.sortBy && getSortByOptions().includes(filterParams.sortBy)) {
         discoverUrl += `&sort_by=${filterParams.sortBy}`;
     }
 

@@ -11,10 +11,16 @@ const Discover = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [movieComponents, setMovieComponents] = useState([]);
 
+    //Filter Options
+    const [sortBySelection, setSortBySelection] = useState('random');
+    const [genresSelection, setGenresSelection] = useState([]);
+    const [minYearSelection, setMinYearSelection] = useState('');
+    const [maxYearSelection, setMaxYearSelection] = useState('');
+
     useEffect(() => {
         const handleDiscoverRequest = async () => {
         try {
-            const response = await fetch(`${apiUrl}/discover`);
+            const response = await fetch(getParameterizedUrl());
             const result = await response.json();
             setDiscover(result);
         } catch (err) {
@@ -22,7 +28,7 @@ const Discover = () => {
         }
         };
         handleDiscoverRequest();
-    }, [requestNewDiscover])
+    }, [requestNewDiscover, apiUrl])
 
     useEffect(() => {
 
@@ -34,6 +40,21 @@ const Discover = () => {
         ));
         setMovieComponents(movieComps);
     }, [discover])
+
+    const getParameterizedUrl = () => {
+        let discoverUrl = `${apiUrl}/discover?`;
+        discoverUrl += 'englishOnly=true';
+        discoverUrl += (sortBySelection === 'random') ? '' : `&sortBy=${sortBySelection}`;
+        discoverUrl += (genresSelection.length === 0) ? '' : `&genre=${genresSelection.join(',')}`;
+        discoverUrl += (minYearSelection) ? `&minYear=${minYearSelection}` : '';
+        discoverUrl += (maxYearSelection) ? `&maxYear=${maxYearSelection}` : '';
+        return discoverUrl;
+    };
+
+    const handleFilterSubmit = (e) => {
+        e.preventDefault();
+        setRequestNewDiscover(!requestNewDiscover);
+    };
 
     const handleScrollForward = () => {
         if (currentIndex === discover.length - 1) {
@@ -60,7 +81,17 @@ const Discover = () => {
             handleScrollForward={handleScrollForward}
             />
         : <p>No movies found.</p>}
-        <FilterSelector />
+        <FilterSelector 
+        sortBySelection={sortBySelection}
+        setSortBySelection={setSortBySelection}
+        genresSelection={genresSelection}
+        setGenresSelection={setGenresSelection}
+        minYearSelection={minYearSelection}
+        setMinYearSelection={setMinYearSelection}
+        maxYearSelection={maxYearSelection}
+        setMaxYearSelection={setMaxYearSelection}
+        handleFilterSubmit={handleFilterSubmit}
+        />
     </div>
   )
 }
