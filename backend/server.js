@@ -23,22 +23,25 @@ app.use("/discover", require('./middleware/checkJWT'), require(path.join(__dirna
 app.use("/popular", require(path.join(__dirname, 'routes', 'popular.js')));
 app.use("/search/title", require(path.join(__dirname, 'routes', 'searchTitle.js')));
 app.use("/search/genre", require(path.join(__dirname, 'routes', 'searchGenre.js')));
-app.get('/genres', (req, res) => {
-    return res.status(200).json(apiOptions.getAvailableGenresMap());
-});
+app.use("/filters", require(path.join(__dirname, 'routes', 'filters')));
 
 app.use("/users", require(path.join(__dirname, 'routes', 'users')));
 
-app.use(verifyJWT);
-app.use("/watchlist", require(path.join(__dirname, 'routes', 'watchlist.js')));
-app.use("/seen", require(path.join(__dirname, 'routes', 'seen.js')));
-
 app.get("/", (req, res) => {
-    res.json({
+    return res.json({
         status: 'API is running',
         version: '1.0.0',
     })
 });
+
+//Login-required routes
+app.use("/watchlist", verifyJWT, require(path.join(__dirname, 'routes', 'watchlist.js')));
+app.use("/seen", verifyJWT, require(path.join(__dirname, 'routes', 'seen.js')));
+
+app.use((req, res, next) => {
+    res.status(404).send('404 Not Found');
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

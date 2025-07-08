@@ -1,5 +1,13 @@
 let availableGenres = [];
 let availableGenresMap = [];
+const sortByOptions = [
+  "popularity.asc",
+  "popularity.desc",
+  "vote_average.asc",
+  "vote_average.desc",
+  "vote_count.asc",
+  "vote_count.desc"
+];
 
 const options = {
     method: 'GET',
@@ -8,6 +16,10 @@ const options = {
         Authorization: `Bearer ${process.env.API_KEY_TMDB}`
     }
 }
+
+const getSortByOptions = () => {
+    return sortByOptions;
+};
 
 const updateAvailableGenres = async () => {
     const result = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options);
@@ -52,4 +64,4 @@ const getRandomPage = (totalPages) => {
     return Math.floor(Math.random() * totalPages + 1);
 };
 
-module.exports = {options, getRandomPage, parseMovieJson, getTotalPages, updateAvailableGenres, getAvailableGenres, getAvailableGenresMap};
+module.exports = {options, getRandomPage, parseMovieJson, getTotalPages, updateAvailableGenres, getAvailableGenres, getAvailableGenresMap, getSortByOptions};
