@@ -10,7 +10,7 @@ const Movie = ({movie}) => {
     <div className="Movie">
         <div className="genreTags">
             {movie.genre_ids.map(id => (
-                <span className="genreTag">{genres[id]} </span>
+                <span className="genreTag" key={id}>{genres[id]} </span>
             ))}
         </div>
           <div className="MoviePosterWrapper">

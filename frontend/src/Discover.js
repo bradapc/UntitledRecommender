@@ -25,16 +25,13 @@ const Discover = () => {
     }, [requestNewDiscover])
 
     useEffect(() => {
-        const movieComps = [];
 
-        discover.forEach(movie => {
-            movieComps.push(
-                <Movie 
-                    key={movie.id}
-                    movie={movie}
-                />
-            );
-        });
+        const movieComps = discover.map(movie => (
+            <Movie 
+                key={movie.id}
+                movie={movie}
+            />
+        ));
         setMovieComponents(movieComps);
     }, [discover])
 
