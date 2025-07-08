@@ -16,6 +16,7 @@ const Discover = () => {
     const [genresSelection, setGenresSelection] = useState([]);
     const [minYearSelection, setMinYearSelection] = useState('');
     const [maxYearSelection, setMaxYearSelection] = useState('');
+    const [englishOnly, setEnglishOnly] = useState(false);
 
     useEffect(() => {
         const handleDiscoverRequest = async () => {
@@ -43,11 +44,12 @@ const Discover = () => {
 
     const getParameterizedUrl = () => {
         let discoverUrl = `${apiUrl}/discover?`;
-        discoverUrl += 'englishOnly=true';
         discoverUrl += (sortBySelection === 'random') ? '' : `&sortBy=${sortBySelection}`;
         discoverUrl += (genresSelection.length === 0) ? '' : `&genre=${genresSelection.join(',')}`;
         discoverUrl += (minYearSelection) ? `&minYear=${minYearSelection}` : '';
         discoverUrl += (maxYearSelection) ? `&maxYear=${maxYearSelection}` : '';
+        discoverUrl += englishOnly ? `&englishOnly=true` : '';
+        console.log(discoverUrl);
         return discoverUrl;
     };
 
@@ -91,6 +93,8 @@ const Discover = () => {
         maxYearSelection={maxYearSelection}
         setMaxYearSelection={setMaxYearSelection}
         handleFilterSubmit={handleFilterSubmit}
+        englishOnly={englishOnly}
+        setEnglishOnly={setEnglishOnly}
         />
     </div>
   )

@@ -223,6 +223,7 @@ h1, h2, h3, h4, h5, p {
   display: flex;
   justify-content: space-evenly;
   margin-top: 16px;
+  align-items: center;
 }
 
 .FilterSelectorButton {
@@ -240,4 +241,8 @@ h1, h2, h3, h4, h5, p {
 .FilterSelectorButton:hover {
   background-color: #65caff;
   transition: background-color 0.2s;
+}
+
+#englishCbx {
+  margin-right: 8px;
 }
