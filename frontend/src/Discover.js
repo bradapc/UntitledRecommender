@@ -2,6 +2,7 @@ import Movie from './Movie';
 import {useState, useEffect, useContext} from 'react';
 import {DataContext} from './context/DataContext';
 import MovieCarousel from './MovieCarousel';
+import FilterSelector from './FilterSelector';
 
 const Discover = () => {
     const {apiUrl} = useContext(DataContext);
@@ -62,6 +63,7 @@ const Discover = () => {
             handleScrollForward={handleScrollForward}
             />
         : <p>No movies found.</p>}
+        <FilterSelector />
     </div>
   )
 }
