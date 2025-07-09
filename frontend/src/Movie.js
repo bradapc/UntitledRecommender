@@ -1,13 +1,15 @@
 import {useContext} from 'react';
 import { DataContext } from './context/DataContext';
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const Movie = ({movie}) => {
   const {genres} = useContext(DataContext);
   const [isLoaded, setIsLoaded] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <div className="Movie">
+    <div className="Movie" onClick={() => navigate(`/movie/${movie.id}`)}>
         <div className="genreTags">
             {movie.genre_ids.map(id => (
                 <span className="genreTag" key={id}>{genres[id]} </span>

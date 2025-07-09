@@ -1,0 +1,62 @@
+.MoviePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1f1f1f;
+    color: #ffffff;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.MovieMainWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    width: 100%;
+    justify-content: center;
+}
+
+.MoviePoster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.MainMovieInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    color: #e0e0e0;
+}
+
+.MoviePage .movie-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.MoviePage .movie-release-date,
+.MoviePage .movie-runtime,
+.MoviePage .movie-budget,
+.MoviePage .movie-revenue {
+    font-size: 1rem;
+    color: #bbbbbb;
+    margin: 0.25rem 0;
+}
+
+.MoviePage .movie-overview {
+    font-size: 1.05rem;
+    color: #dddddd;
+    text-align: justify;
+    padding: 0;
+    line-height: 1.7;
+    margin-top: 1.2rem;
+}
