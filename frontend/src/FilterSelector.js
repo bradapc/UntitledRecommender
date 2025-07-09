@@ -34,12 +34,12 @@ const FilterSelector = ({
 
   return (
     <form className="FilterSelector">
-        <span className="genreWrapperLabel">Genres</span>
+        <span className="filtersWrapperLabel">Filters</span>
         <div className="genreFilterWrapper">
                 {genreCheckboxes.map(genre => (
                     <div key={genre.id}>
                         <label htmlFor={genre.id}>{genre.name}</label>
-                        <input type="checkbox" checked={genre.checked} id={genre.id} onChange={(e) => handleCheckedGenre(e)}></input>
+                        <input className="filterCbx" type="checkbox" checked={genre.checked} id={genre.id} onChange={(e) => handleCheckedGenre(e)}></input>
                     </div>
                 ))}
             </div>
@@ -61,7 +61,7 @@ const FilterSelector = ({
             <button className="FilterSelectorButton" type="submit" onClick={(e) => handleFilterSubmit(e)}>Filter</button>
             <button className="FilterSelectorButton" type="reset">Reset</button>
             <div>
-                <input id="englishCbx" type="checkbox" checked={englishOnly} onChange={() => setEnglishOnly(!englishOnly)}></input>
+                <input className="filterCbx" id="englishCbx" type="checkbox" checked={englishOnly} onChange={() => setEnglishOnly(!englishOnly)}></input>
                 <label htmlFor="englishCbx">English Only</label>
             </div>
         </div>
