@@ -2,12 +2,11 @@ import {useContext, useState, useEffect} from 'react';
 import {DataContext} from './context/DataContext';
 
 const FilterSelector = ({
-    sortBySelection, setSortBySelection, genresSelection, setGenresSelection, minYearSelection, setMinYearSelection, maxYearSelection, setMaxYearSelection, handleFilterSubmit,
-    englishOnly, setEnglishOnly
+    sortBySelection, setSortBySelection, genreCheckboxes, setGenreCheckboxes, minYearSelection, setMinYearSelection, maxYearSelection, setMaxYearSelection, handleFilterSubmit,
+    englishOnly, setEnglishOnly, handleReset
 }) => {
     const {genres} = useContext(DataContext);
     const {sortBy} = useContext(DataContext);
-    const [genreCheckboxes, setGenreCheckboxes] = useState([]);
 
     const handleCheckedGenre = (e) => {
         const updatedGenreCheckboxes = genreCheckboxes.map(genreCbx => 
@@ -17,11 +16,6 @@ const FilterSelector = ({
         );
         setGenreCheckboxes(updatedGenreCheckboxes);
     };
-
-    useEffect(() => {
-        const checkedGenres = genreCheckboxes.filter(genre => genre.checked).map(genre => genre.id);
-        setGenresSelection(checkedGenres);
-    }, [genreCheckboxes, setGenresSelection]);
 
     useEffect(() => {
         setGenreCheckboxes(Object.keys(genres).map(key => ({
@@ -59,7 +53,7 @@ const FilterSelector = ({
         </div>
         <div className="FilterButtonWrapper">
             <button className="FilterSelectorButton" type="submit" onClick={(e) => handleFilterSubmit(e)}>Filter</button>
-            <button className="FilterSelectorButton" type="reset">Reset</button>
+            <button className="FilterSelectorButton" type="reset" onClick={(e) => handleReset(e)}>Reset</button>
             <div>
                 <input className="filterCbx" id="englishCbx" type="checkbox" checked={englishOnly} onChange={() => setEnglishOnly(!englishOnly)}></input>
                 <label htmlFor="englishCbx">English Only</label>

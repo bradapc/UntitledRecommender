@@ -13,7 +13,7 @@ const Discover = () => {
 
     //Filter Options
     const [sortBySelection, setSortBySelection] = useState('random');
-    const [genresSelection, setGenresSelection] = useState([]);
+    const [genreCheckboxes, setGenreCheckboxes] = useState([]);
     const [minYearSelection, setMinYearSelection] = useState('');
     const [maxYearSelection, setMaxYearSelection] = useState('');
     const [englishOnly, setEnglishOnly] = useState(false);
@@ -42,14 +42,17 @@ const Discover = () => {
         setMovieComponents(movieComps);
     }, [discover])
 
+    const getSelectedGenres = () => {
+        return genreCheckboxes.filter(genreCbx => genreCbx.checked).map(genreCbx => genreCbx.id);
+    };
+
     const getParameterizedUrl = () => {
         let discoverUrl = `${apiUrl}/discover?`;
         discoverUrl += (sortBySelection === 'random') ? '' : `&sortBy=${sortBySelection}`;
-        discoverUrl += (genresSelection.length === 0) ? '' : `&genre=${genresSelection.join(',')}`;
+        discoverUrl += (getSelectedGenres().length === 0) ? '' : `&genre=${getSelectedGenres().join(',')}`;
         discoverUrl += (minYearSelection) ? `&minYear=${minYearSelection}` : '';
         discoverUrl += (maxYearSelection) ? `&maxYear=${maxYearSelection}` : '';
         discoverUrl += englishOnly ? `&englishOnly=true` : '';
-        console.log(discoverUrl);
         return discoverUrl;
     };
 
@@ -57,6 +60,18 @@ const Discover = () => {
         e.preventDefault();
         setRequestNewDiscover(!requestNewDiscover);
     };
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        setSortBySelection('random');
+        setGenreCheckboxes(genreCheckboxes.map(genre => {
+            return {...genre, checked: false}
+        }))
+        setMinYearSelection('');
+        setMaxYearSelection('');
+        setEnglishOnly(false);
+        setRequestNewDiscover(!requestNewDiscover);
+    }
 
     const handleScrollForward = () => {
         if (currentIndex === discover.length - 1) {
@@ -86,8 +101,8 @@ const Discover = () => {
         <FilterSelector 
         sortBySelection={sortBySelection}
         setSortBySelection={setSortBySelection}
-        genresSelection={genresSelection}
-        setGenresSelection={setGenresSelection}
+        genreCheckboxes={genreCheckboxes}
+        setGenreCheckboxes={setGenreCheckboxes}
         minYearSelection={minYearSelection}
         setMinYearSelection={setMinYearSelection}
         maxYearSelection={maxYearSelection}
@@ -95,6 +110,7 @@ const Discover = () => {
         handleFilterSubmit={handleFilterSubmit}
         englishOnly={englishOnly}
         setEnglishOnly={setEnglishOnly}
+        handleReset={handleReset}
         />
     </div>
   )
