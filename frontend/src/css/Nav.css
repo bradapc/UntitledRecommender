@@ -1,0 +1,22 @@
+.Nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px;
+    background-color: #3aaaff;
+    font-weight: 600;
+    font-size: 1.3rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.NavLink {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.NavLink:hover {
+    color: #cccccc;
+    cursor: pointer;
+}

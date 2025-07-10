@@ -9,10 +9,10 @@ function App() {
   return (
     <div className="App">
         <DataContextProvider>
-          <Header />
           <Router>
+            <Header />
             <Routes>
-              <Route path='/' element={<Discover />} />
+              <Route path='/discover' element={<Discover />} />
               <Route path='/movie/:id' element={<MoviePage />} />
             </Routes>
           </Router>

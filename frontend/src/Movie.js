@@ -24,7 +24,8 @@ const Movie = ({movie}) => {
         </div>
         <h2 className="movie-title">{movie.title}</h2>
         <span className="movie-release">{movie.release_date}</span>
-        {movie.overview.length < 250 ?
+
+        {!movie.overview ? <span><em>No overview could be found for this movie</em></span> : movie.overview.length < 250 ?
         <span className="movie-overview">{movie.overview}</span> : (
           <div className="movie-overview">
             <span>{movie.overview.slice(0, movie.overview.slice(0, 250).lastIndexOf(' '))}... </span>
