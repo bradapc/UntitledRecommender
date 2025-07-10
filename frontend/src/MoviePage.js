@@ -54,7 +54,7 @@ const MoviePage = () => {
                 <h2 style={{textAlign: "center"}}>Cast</h2>
                 <div className="CastWrapper">
                     {cast.map(castMember => (
-                        <div className="Cast">
+                        <div className="Cast" key={castMember.id}>
                             <img className="CastImage" src={`https://image.tmdb.org/t/p/w185/${castMember.profile_path}`} alt="Cast Member"></img>
                             <span className="CastName">{castMember.name}</span>
                             <span className="CastCharacter">{castMember.character}</span>
