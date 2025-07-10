@@ -1,5 +1,6 @@
 import './css/MoviePage.css';
 import useMovie from './hooks/useMovie';
+import useCast from './hooks/useCast';
 import {useParams} from 'react-router-dom';
 import {DataContext} from './context/DataContext';
 import {useContext} from 'react';
@@ -7,7 +8,9 @@ import {useContext} from 'react';
 const MoviePage = () => {
     const {id} = useParams();
     const movieSearch = useMovie(id);
+    const castSearch = useCast(id);
     const {movie} = movieSearch;
+    const {cast} = castSearch;
     const {genres} = useContext(DataContext);
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -45,6 +48,20 @@ const MoviePage = () => {
                 <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
             </div>
         </div>
+        )}
+        {cast.length && (
+            <div className="CastContainer">
+                <h2 style={{textAlign: "center"}}>Cast</h2>
+                <div className="CastWrapper">
+                    {cast.map(castMember => (
+                        <div className="Cast">
+                            <img className="CastImage" src={`https://image.tmdb.org/t/p/w185/${castMember.profile_path}`} alt="Cast Member"></img>
+                            <span className="CastName">{castMember.name}</span>
+                            <span className="CastCharacter">{castMember.character}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
         )}
     </div>
   )
