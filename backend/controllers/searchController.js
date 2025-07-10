@@ -35,8 +35,17 @@ const handleGetCast = async (req, res) => {
     if (!req || !req.params.id) {
         return res.status(400).json({"message": "Error: You must supply a movie id to get cast"});
     }
-    const castResult = await searchAPI.searchCastByID(req.params.id);
-    return res.status(200).json(castResult.cast);
+    try {
+        const castDbQuery = await db.query('SELECT * FROM movie_cast JOIN casted_in ON movie_cast.id=casted_in.cast_id WHERE movie_id = $1 ORDER BY billing_order', [req.params.id]);
+        if (castDbQuery.rowCount > 0) {
+            return res.status(200).json(castDbQuery.rows);
+        }
+        const castResult = await searchAPI.searchCastByID(req.params.id);
+        return res.status(200).json(castResult.cast);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({"error": "Internal server error"});
+    }
 };
 
 module.exports = {handleSearch, handleGetCast}
