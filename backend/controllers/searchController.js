@@ -15,4 +15,12 @@ const handleSearch = async (req, res) => {
     }
 };
 
-module.exports = {handleSearch}
+const handleGetCast = async (req, res) => {
+    if (!req || !req.params.id) {
+        return res.status(400).json({"message": "Error: You must supply a movie id to get cast"});
+    }
+    const castResult = await searchAPI.searchCastByID(req.params.id);
+    return res.status(200).json(castResult.cast);
+};
+
+module.exports = {handleSearch, handleGetCast}

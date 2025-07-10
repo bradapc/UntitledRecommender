@@ -12,4 +12,10 @@ const searchByTitle = async (title) => {
     return jsonObj;
 };
 
-module.exports = {searchById, searchByTitle};
+const searchCastByID = async (id) => {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${id}/credits`, options);
+    const jsonObj = await response.json();
+    return jsonObj; 
+};
+
+module.exports = {searchById, searchByTitle, searchCastByID};
