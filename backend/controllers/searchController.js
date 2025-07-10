@@ -1,6 +1,7 @@
 require('dotenv').config();
 const searchAPI = require('../services/searchAPI');
 const db = require('../db');
+const {addMovieGenres} = require('../services/addMovieGenres');
 
 const handleSearch = async (req, res) => {
     try {
@@ -11,11 +12,16 @@ const handleSearch = async (req, res) => {
         if (req.query.id) {
             const movieIdQuery = await db.query('SELECT * FROM movie WHERE id = $1', [req.query.id]);
             if (movieIdQuery.rowCount > 0) {
-                return res.status(200).json({movieResult: movieIdQuery.rows[0]});
+                const genresResult = await db.query('SELECT genre_id FROM movie_genre WHERE movie_id = $1', [req.query.id]);
+                const movie = {...movieIdQuery.rows[0], genres: genresResult.rows.map(g => {
+                    return {id: g.genre_id};
+                })};
+                return res.status(200).json({movieResult: movie});
             }
             const movieResult = await searchAPI.searchById(req.query.id);
-            db.query("INSERT INTO movie (id, title, poster_path, release_date, overview, budget, runtime, revenue) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING", 
+            await db.query("INSERT INTO movie (id, title, poster_path, release_date, overview, budget, runtime, revenue) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING", 
                 [movieResult.id, movieResult.title, movieResult.poster_path, movieResult.release_date, movieResult.overview, movieResult.budget, movieResult.runtime, movieResult.revenue])
+                await addMovieGenres(movieResult);
                 return res.status(200).json({movieResult: movieResult});
         } else if (req.query.title) {
             const movieResult = await searchAPI.searchByTitle(req.query.title);

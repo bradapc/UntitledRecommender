@@ -21,7 +21,7 @@ const MoviePage = () => {
     <div className="MoviePage">
         {movieSearch.loading && <span>Loading...</span>}
         {movieSearch.error && !movieSearch.loading && <span style={{color: "red"}}>{`${movieSearch.error}`}</span>}
-        {movieSearch.movie && (
+        {movieSearch.movie && !movieSearch.loading && (
         <div className="MovieMainWrapper">
             <div className="MoviePosterWrapper">
                 <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
@@ -37,7 +37,7 @@ const MoviePage = () => {
                     ))}
                 </div>
                 )}
-                <p className="movie-release-date">{movie.release_date}</p>
+                <p className="movie-release-date">{movie.release_date.split('T')[0]}</p>
                 {movie.runtime < 60 ? (
                     <p className="movie-runtime"><strong>Runtime:</strong> {movie.runtime}m</p>
                 ) : (
@@ -49,13 +49,13 @@ const MoviePage = () => {
             </div>
         </div>
         )}
-        {cast.length && (
+        {cast.length && !cast.loading && (
             <div className="CastContainer">
                 <h2 style={{textAlign: "center"}}>Cast</h2>
                 <div className="CastWrapper">
                     {cast.map(castMember => (
                         <div className="Cast" key={castMember.id}>
-                            <img className="CastImage" src={`https://image.tmdb.org/t/p/w185/${castMember.profile_path}`} alt="Cast Member"></img>
+                            {castMember.profile_path && <img className="CastImage" src={`https://image.tmdb.org/t/p/w185/${castMember.profile_path}`} alt="Cast Member"></img>}
                             <span className="CastName">{castMember.name}</span>
                             <span className="CastCharacter">{castMember.character}</span>
                         </div>

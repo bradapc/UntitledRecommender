@@ -19,7 +19,6 @@ function useMovie(id) {
                     throw new Error('Failed to fetch movie');
                 }
                 const resJson = await response.json();
-                console.log(resJson);
                 setMovie(resJson.movieResult);
             } catch (err) {
                 setError(err);
