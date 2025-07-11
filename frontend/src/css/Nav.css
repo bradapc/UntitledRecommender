@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 16px;
     background-color: #3aaaff;
     font-weight: 600;
     font-size: 1.3rem;
@@ -14,6 +13,7 @@
 .NavLink {
     color: #ffffff;
     text-decoration: none;
+    padding: 12px;
 }
 
 .NavLink:hover {
