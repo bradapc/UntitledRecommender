@@ -26,6 +26,8 @@ app.use("/filters", require(path.join(__dirname, 'routes', 'filters')));
 
 app.use("/users", require(path.join(__dirname, 'routes', 'users')));
 
+app.get("/auth/check", require('./controllers/authController').checkAuth);
+
 app.get("/", (req, res) => {
     return res.json({
         status: 'API is running',
