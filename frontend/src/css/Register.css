@@ -9,6 +9,7 @@
     border: 1px solid white;
     width: 350px;
     height: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .RegisterForm input {
@@ -55,4 +56,15 @@
 .RegisterTextWrapper p {
     font-size: 16px;
     color: #dddddd;
+}
+
+.ErrorRegister {
+    width: 100% - 8;
+    background-color: rgb(226, 111, 111);
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    color: #fff;
+    padding: 8px;
+    user-select: none;
 }
