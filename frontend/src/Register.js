@@ -21,11 +21,11 @@ const Register = () => {
             },
             body: JSON.stringify({username, email, password})
         }
-        console.log(JSON.stringify({username, email, password}))
         const response = await fetch(`${apiUrl}/signup`, postOptions)
         if (!response.ok) {
             setErrorStatus(response.status);
         } else {
+            //LOGIN USER HERE
             navigate('/');
         }
     };
