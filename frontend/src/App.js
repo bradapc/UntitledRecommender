@@ -3,6 +3,7 @@ import Discover from './Discover';
 import { DataContextProvider } from './context/DataContext';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import MoviePage from './MoviePage';
+import Register from './Register';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
             <Routes>
               <Route path='/discover' element={<Discover />} />
               <Route path='/movie/:id' element={<MoviePage />} />
+              <Route path='/register' element={<Register />} />
             </Routes>
           </Router>
         </DataContextProvider>
