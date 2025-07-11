@@ -241,7 +241,6 @@ h1, h2, h3, h4, h5, p {
   background-color:#3aaaff;
   color: #ffffff;
   cursor: pointer;
-  transition: background-color 0.25s, transform 0.1s ease-in-out;
 }
 
 .FilterSelectorButton:hover {
