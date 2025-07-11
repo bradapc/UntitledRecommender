@@ -7,6 +7,13 @@ export const DataContextProvider = ({children}) => {
     const [apiUrl, setApiUrl] = useState(process.env.REACT_APP_API_URL || '');
     const [genres, setGenres] = useState({});
     const [sortBy, setSortBy] = useState({});
+    const [isAuth, setIsAuth] = useState(() => {
+        return localStorage.getItem('isAuth') === 'true';
+    });
+
+    useEffect(() => {
+        localStorage.setItem('isAuth', isAuth);
+    }, [isAuth])
 
     useEffect(() => {
         const getSortByOptionsFromApi = async () => {
@@ -32,7 +39,7 @@ export const DataContextProvider = ({children}) => {
 
     return (
         <DataContext.Provider value={{
-            apiUrl, setApiUrl, genres, sortBy
+            apiUrl, setApiUrl, genres, sortBy, isAuth, setIsAuth
         }}>
             {children}
         </DataContext.Provider>
