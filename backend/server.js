@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/login", require(path.join(__dirname, 'routes', 'login.js')));
+app.use("/logout", require(path.join(__dirname, 'routes', 'logout.js')));
 app.use("/signup", require(path.join(__dirname, 'routes', 'signup.js')));
 app.use("/discover", require('./middleware/checkJWT'), require(path.join(__dirname, 'routes', 'discover.js')));
 app.use("/popular", require(path.join(__dirname, 'routes', 'popular.js')));

@@ -27,7 +27,8 @@ const handleLogin = async (req, res) => {
         httpOnly: true,
         secure: false, //DEV ONLY
         sameSite: 'Lax',
-        maxAge: 3600000
+        maxAge: 3600000,
+        path: '/'
     });
     return res.status(200).json({"message": "User log in successful"});
 }

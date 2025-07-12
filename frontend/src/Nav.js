@@ -13,7 +13,7 @@ const Nav = () => {
         <NavLink to="/popular" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Popular</NavLink>
         <NavLink to="/top-rated" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Top Rated</NavLink>
         {isAuth ? (
-          <NavLink to="/logout">Logout</NavLink>
+          <NavLink to="/logout" className="NavLink">Logout</NavLink>
         ) : (
           <>
             <NavLink to="/login" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Login</NavLink>
