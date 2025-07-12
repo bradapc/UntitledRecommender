@@ -1,0 +1,14 @@
+.ListMovie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ListMoviePoster {
+    width: 250px;
+    height: 375px;
+}
+
+.ListMovie:hover {
+    transform: scale(1.03);
+}

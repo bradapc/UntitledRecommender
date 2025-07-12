@@ -39,7 +39,7 @@ const MoviePage = () => {
                 )}
                 <p className="movie-release-date">{movie.release_date.split('T')[0]}</p>
                 {movie.runtime < 60 ? (
-                    <p className="movie-runtime"><strong>Runtime:</strong> {movie.runtime}m</p>
+                    <p className="movie-runtime"><strong>Runtime:</strong> {movie.runtime}</p>
                 ) : (
                     <p className="movie-runtime"><strong>Runtime:</strong> {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}m</p>
                 )}

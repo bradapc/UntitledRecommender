@@ -1,5 +1,6 @@
 const db = require('../db');
 const searchAPI = require('../services/searchAPI');
+const {cacheMovie} = require('../services/cacheMovie');
 
 const handleAddToWatchlist = async (req, res) => {
     if (!req.body) {
@@ -22,10 +23,7 @@ const handleAddToWatchlist = async (req, res) => {
 
         const movieExists = await db.query("SELECT id FROM movie WHERE id = $1", [movieId]);
         if (!movieExists.rows[0]) {
-            await db.query("INSERT INTO movie (id, title, poster_path, release_date, overview) VALUES ($1, $2, $3, $4, $5)", [movieId, searchResult.title, searchResult.poster_path, searchResult.release_date, searchResult.overview]);
-            for (const genre of searchResult.genres) {
-                await db.query("INSERT INTO movie_genre (movie_id, genre_id) VALUES ($1, $2)", [movieId, genre.id])
-            }
+            cacheMovie(searchResult);
         }
         await db.query("INSERT INTO watchlist (user_id, movie_id, priority) VALUES ($1, $2, $3)", [req.userId, movieId, priority]);
 

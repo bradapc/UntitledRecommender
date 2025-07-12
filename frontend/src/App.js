@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import MoviePage from './MoviePage';
 import Register from './Register';
 import Login from './Login';
+import Watchlist from './Watchlist';
 import { useEffect, useContext } from 'react';
 import {DataContext} from './context/DataContext';
 
@@ -36,6 +37,7 @@ function App() {
               <Route path='/movie/:id' element={<MoviePage />} />
               <Route path='/register' element={<Register />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/watchlist' element={<Watchlist />} />
             </Routes>
           </Router>
     </div>

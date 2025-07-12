@@ -16,7 +16,7 @@ const Login = () => {
       if (isAuth) {
         navigate('/');
       }
-    }, []);
+    }, [isAuth, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -32,15 +32,13 @@ const Login = () => {
         if (!response.ok) {
           setErrorStatus(response.status);
         } else {
-          const test = await fetch(`${apiUrl}/watchlist`, {
-            credentials: 'include'
-          })
           setIsAuth(true);
-          navigate('/');
+          navigate(-1);
         }
     };
 
   return (
+    !isAuth && (
     <div className="Login">
         {errorStatus != null && (
           <div className="ErrorLogin">
@@ -58,6 +56,7 @@ const Login = () => {
             <p>Forgot username or password?</p>
         </form>
     </div>
+    )
   )
 }
 
