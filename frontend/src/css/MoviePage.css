@@ -107,6 +107,20 @@
     margin-bottom: 8px;
 }
 
+.CastImageMissing {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    user-select: none;
+    background-color: rgb(80, 80, 80);
+}
+
 .CastName {
     font-weight: bold;
     font-size: 14px;

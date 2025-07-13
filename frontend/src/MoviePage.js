@@ -13,7 +13,7 @@ const MoviePage = () => {
     const {addToWatchlist, isLoading, error} = useWatchlistOperations();
     const {movie} = movieSearch;
     const {cast} = castSearch;
-    const {genres} = useContext(DataContext);
+    const {genres, isAuth} = useContext(DataContext);
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
@@ -48,10 +48,12 @@ const MoviePage = () => {
                 <p className="movie-overview">{movie.overview}</p>
                 <p className="movie-budget"><strong>Budget:</strong> {formatter.format(movie.budget)}</p>
                 <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
+                {isAuth && (
                 <div className="AddButtonWrapper">
-                <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>
-                <button type="button">Seen It</button>
-        </div>
+                    <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>
+                    <button type="button">Seen It</button>
+                </div>
+                )}
             </div>
         </div>
         )}
@@ -62,6 +64,7 @@ const MoviePage = () => {
                     {cast.map(castMember => (
                         <div className="Cast" key={castMember.id}>
                             {castMember.profile_path && <img className="CastImage" src={`https://image.tmdb.org/t/p/w185/${castMember.profile_path}`} alt="Cast Member"></img>}
+                            {!castMember.profile_path && <div className="CastImageMissing"><span>no image found</span></div>}
                             <span className="CastName">{castMember.name}</span>
                             <span className="CastCharacter">{castMember.character}</span>
                         </div>
