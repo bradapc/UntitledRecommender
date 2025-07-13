@@ -118,3 +118,27 @@
     font-size: 13px;
     color: #dddddd;
 }
+
+.AddButtonWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-end;
+    width: 100%;
+    gap: 4px;
+}
+
+.AddButtonWrapper button {
+    width: 120px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3aaaff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.AddButtonWrapper button:hover {
+    transform: scale(1.03);
+}

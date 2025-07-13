@@ -46,6 +46,10 @@ const MoviePage = () => {
                 <p className="movie-overview">{movie.overview}</p>
                 <p className="movie-budget"><strong>Budget:</strong> {formatter.format(movie.budget)}</p>
                 <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
+                <div className="AddButtonWrapper">
+                <button type="button">Watchlist</button>
+                <button type="button">Seen It</button>
+        </div>
             </div>
         </div>
         )}
