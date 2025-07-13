@@ -1,6 +1,7 @@
 import './css/MoviePage.css';
 import useMovie from './hooks/useMovie';
 import useCast from './hooks/useCast';
+import useAddToWatchlist from './hooks/useAddToWatchlist';
 import {useParams} from 'react-router-dom';
 import {DataContext} from './context/DataContext';
 import {useContext} from 'react';
@@ -9,6 +10,7 @@ const MoviePage = () => {
     const {id} = useParams();
     const movieSearch = useMovie(id);
     const castSearch = useCast(id);
+    const {addToWatchlist, isLoading, error} = useAddToWatchlist();
     const {movie} = movieSearch;
     const {cast} = castSearch;
     const {genres} = useContext(DataContext);
@@ -47,7 +49,7 @@ const MoviePage = () => {
                 <p className="movie-budget"><strong>Budget:</strong> {formatter.format(movie.budget)}</p>
                 <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
                 <div className="AddButtonWrapper">
-                <button type="button">Watchlist</button>
+                <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>
                 <button type="button">Seen It</button>
         </div>
             </div>
