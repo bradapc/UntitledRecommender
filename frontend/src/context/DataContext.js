@@ -7,6 +7,8 @@ export const DataContextProvider = ({children}) => {
     const [apiUrl, setApiUrl] = useState(process.env.REACT_APP_API_URL || '');
     const [genres, setGenres] = useState({});
     const [sortBy, setSortBy] = useState({});
+    const [refresh, setRefresh] = useState(false);
+    const triggerRefresh = () => setRefresh(prev => !prev);
     const [isAuth, setIsAuth] = useState(() => {
         return localStorage.getItem('isAuth') === 'true';
     });
@@ -39,7 +41,7 @@ export const DataContextProvider = ({children}) => {
 
     return (
         <DataContext.Provider value={{
-            apiUrl, setApiUrl, genres, sortBy, isAuth, setIsAuth
+            apiUrl, setApiUrl, genres, sortBy, isAuth, setIsAuth, refresh, triggerRefresh
         }}>
             {children}
         </DataContext.Provider>

@@ -11,4 +11,33 @@
 
 .ListMovie:hover {
     transform: scale(1.03);
+    transform-origin: center;
+}
+
+.ListMovieButtonWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.ListMovieButtonWrapper button {
+    width: 120px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3aaaff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ListMovieButtonWrapper .WatchedButton:hover {
+    background-color: rgb(49, 155, 0);
+    transition: 0.2s;
+}
+
+.ListMovieButtonWrapper .RemoveButton:hover {
+    background-color: red;
+    transition: 0.2s;
 }

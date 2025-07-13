@@ -1,7 +1,7 @@
 import './css/ListMovie.css';
 import {useNavigate} from "react-router-dom";
 
-const ListMovie = ({movie}) => {
+const ListMovie = ({movie, handleRemoveClicked}) => {
     const navigate = useNavigate();
 
     const handleMovieClick = () => {
@@ -15,6 +15,10 @@ const ListMovie = ({movie}) => {
         <span>Priority: {movie.priority}</span>
         <span>Added on: {movie.added_at.split("T")[0]}</span>
         {movie.notes && <span>Notes</span>}
+        <div className="ListMovieButtonWrapper">
+          <button className="WatchedButton" >Watched</button>
+          <button className="RemoveButton" onClick={(e) => handleRemoveClicked(e, movie.movie_id)}>Remove</button>
+        </div>
     </div>
   )
 }

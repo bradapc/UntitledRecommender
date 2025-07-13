@@ -25,7 +25,7 @@ const handleAddToWatchlist = async (req, res) => {
         if (!movieExists.rows[0]) {
             cacheMovie(searchResult);
         }
-        await db.query("INSERT INTO watchlist (user_id, movie_id, priority) VALUES ($1, $2, $3)", [req.userId, movieId, priority]);
+        await db.query("INSERT INTO watchlist (user_id, movie_id, priority) VALUES ($1, $2, $3) ON CONFLICT (user_id, movie_id) DO NOTHING", [req.userId, movieId, priority]);
 
         await db.query("COMMIT");
     } catch (err) {
@@ -38,9 +38,8 @@ const handleAddToWatchlist = async (req, res) => {
 }
 
 const handleDelete = async (req, res) => {
-    const movieId = req.params.id;
     try {
-        const result = db.query('DELETE FROM watchlist WHERE user_id = $1 AND movie_id = $2', [req.userId, req.params.id]);
+        const result = await db.query('DELETE FROM watchlist WHERE user_id = $1 AND movie_id = $2', [req.userId, req.params.id]);
     } catch (err) {
         console.log(err);
         return res.status(500).json({"message": "Internal server error"});

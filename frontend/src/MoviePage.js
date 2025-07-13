@@ -1,7 +1,7 @@
 import './css/MoviePage.css';
 import useMovie from './hooks/useMovie';
 import useCast from './hooks/useCast';
-import useAddToWatchlist from './hooks/useAddToWatchlist';
+import useWatchlistOperations from './hooks/useWatchlistOperations';
 import {useParams} from 'react-router-dom';
 import {DataContext} from './context/DataContext';
 import {useContext} from 'react';
@@ -10,7 +10,7 @@ const MoviePage = () => {
     const {id} = useParams();
     const movieSearch = useMovie(id);
     const castSearch = useCast(id);
-    const {addToWatchlist, isLoading, error} = useAddToWatchlist();
+    const {addToWatchlist, isLoading, error} = useWatchlistOperations();
     const {movie} = movieSearch;
     const {cast} = castSearch;
     const {genres} = useContext(DataContext);

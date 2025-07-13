@@ -2,7 +2,7 @@ import {DataContext} from '../context/DataContext';
 import {useContext, useState, useEffect} from 'react';
 
 function useWatchlist() {
-    const {isAuth, apiUrl} = useContext(DataContext);
+    const {isAuth, apiUrl, refresh} = useContext(DataContext);
     const [watchlist, setWatchlist] = useState([]);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ function useWatchlist() {
         };
 
         getWatchlist();
-    }, [isAuth, apiUrl]);
+    }, [isAuth, apiUrl, refresh]);
 
     return {watchlist, error, isLoading};
 }

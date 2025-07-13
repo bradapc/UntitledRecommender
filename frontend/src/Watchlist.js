@@ -4,11 +4,18 @@ import {DataContext} from './context/DataContext';
 import useWatchlist from './hooks/useWatchlist';
 import ListMovie from './ListMovie';
 import './css/Watchlist.css';
+import {useRemoveFromWatchlist} from './hooks/useWatchlistOperations';
 
 const Watchlist = () => {
     const {isAuth} = useContext(DataContext);
     const {watchlist, isLoading, error} = useWatchlist();
+    const useRemove = useRemoveFromWatchlist();
     const navigate = useNavigate();
+
+    const handleRemoveClicked = (e, movie_id) => {
+      e.stopPropagation();
+      useRemove.removeFromWatchlist(movie_id);
+    };
 
     useEffect(() => {
         if (!isAuth) {
@@ -20,10 +27,10 @@ const Watchlist = () => {
   return (
     <div className="Watchlist">
         {isLoading && <p>Loading...</p>}
-        {!isLoading && error && <p style={{color: "red"}}>{error}</p>}
+        {!isLoading && error && <p style={{color: "red"}}>{error.message}</p>}
         {!isLoading && !error && watchlist && (
             watchlist.map(movie => (
-                <ListMovie key={movie.id} movie={movie} />
+                <ListMovie key={movie.id} movie={movie} handleRemoveClicked={handleRemoveClicked}/>
             ))
         )}
         {!isLoading && !error && !watchlist.length === 0 && <p>No movies found.</p>}
