@@ -1,5 +1,21 @@
-.Watchlist {
+.WatchlistDataWrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 32px;
+}
+
+.WatchlistWrapper h1, h3 {
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.WatchlistInfoWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.GenreCountWrapper {
+    display: flex;
+    flex-direction: row;
 }

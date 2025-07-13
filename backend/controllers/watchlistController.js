@@ -55,7 +55,8 @@ const getWatchlist = async (req, res) => {
         const dbres = await db.query('SELECT * FROM watchlist WHERE user_id = $1', [req.userId]);
         const movieIds = dbres.rows.map(movie => movie.movie_id);
         const movieInfo = await db.query('SELECT * FROM movie WHERE id = ANY($1::int[])', [movieIds]);
-        const combined = {"watchlist": mergeOnId(dbres.rows, movieInfo.rows)};
+        const genreInfo = await db.query('SELECT * FROM movie_genre WHERE movie_id = ANY($1::int[])', [movieIds]);
+        const combined = {"watchlist": mergeOnId(dbres.rows, movieInfo.rows, genreInfo.rows)};
         return res.status(200).json(combined);
     } catch (err) {
         console.error(err);
@@ -63,11 +64,13 @@ const getWatchlist = async (req, res) => {
     }
 };
 
-const mergeOnId = (watchlist, movies) => {
+const mergeOnId = (watchlist, movies, genres) => {
     return watchlist.map(watch => {
         const movie = movies.find(m => m.id === watch.movie_id) || {};
         delete movie.id;
-        return {...watch, ...movie};
+        const moviesGenre = genres.filter(genre => genre.movie_id === watch.movie_id);
+        const genreList = moviesGenre.map(entry => entry.genre_id);
+        return {...watch, ...movie, genres: genreList};
     });
 };
 
