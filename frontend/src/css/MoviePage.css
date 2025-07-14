@@ -143,6 +143,7 @@
 
 .AddButtonWrapper button {
     width: 120px;
+    height: 35px;
     padding: 8px;
     border: none;
     border-radius: 8px;
@@ -151,6 +152,12 @@
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.AddButtonWrapper .OnWatchlistButton {
+    background-color: #28a745;
+    width: 138px;
+    height: 35px;
 }
 
 .AddButtonWrapper button:hover {

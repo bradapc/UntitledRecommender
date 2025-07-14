@@ -1,15 +1,15 @@
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useContext} from 'react';
 import {DataContext} from './context/DataContext';
-import useWatchlist from './hooks/useWatchlist';
 import ListMovie from './ListMovie';
 import './css/Watchlist.css';
 import {useRemoveFromWatchlist} from './hooks/useWatchlistOperations';
 import {useAddToSeen} from './hooks/useSeenOperations';
+import { WatchlistContext } from './context/WatchlistContext';
 
 const Watchlist = () => {
     const {isAuth} = useContext(DataContext);
-    const {watchlist, isLoading, error} = useWatchlist();
+    const {watchlist, isLoading, error} = useContext(WatchlistContext);
     const useRemove = useRemoveFromWatchlist();
     const useSeen = useAddToSeen();
     const navigate = useNavigate();

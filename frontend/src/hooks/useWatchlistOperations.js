@@ -32,7 +32,7 @@ export function useRemoveFromWatchlist() {
 }
 
 export function useAddToWatchlist() {
-    const {apiUrl} = useContext(DataContext);
+    const {apiUrl, triggerRefresh} = useContext(DataContext);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -52,6 +52,7 @@ export function useAddToWatchlist() {
                 if (!response.ok) {
                     throw new Error('Could not add movie to watchlist');
                 }
+                triggerRefresh();
             } catch (err) {
                 setError(err);
             } finally {

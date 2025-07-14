@@ -2,24 +2,32 @@ import './css/MoviePage.css';
 import useMovie from './hooks/useMovie';
 import useCast from './hooks/useCast';
 import useWatchlistOperations from './hooks/useWatchlistOperations';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import {DataContext} from './context/DataContext';
 import {useContext} from 'react';
 import { useAddToSeen } from './hooks/useSeenOperations';
+import { WatchlistContext } from './context/WatchlistContext';
 
 const MoviePage = () => {
     const {id} = useParams();
     const movieSearch = useMovie(id);
     const castSearch = useCast(id);
     const {addToWatchlist, isLoading, error} = useWatchlistOperations();
+    const {watchlist} = useContext(WatchlistContext);
     const {addToSeen} = useAddToSeen();
     const {movie} = movieSearch;
     const {cast} = castSearch;
     const {genres, isAuth} = useContext(DataContext);
+    const navigate = useNavigate();
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
     })
+
+    const isMovieOnWatchlist = () => {
+        return watchlist.find(movie => movie.movie_id === Number(id));
+        
+    };
 
   return (
     <div className="MoviePage">
@@ -52,7 +60,7 @@ const MoviePage = () => {
                 <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
                 {isAuth && (
                 <div className="AddButtonWrapper">
-                    <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>
+                    {isMovieOnWatchlist() ? <button className="OnWatchlistButton" onClick={() => navigate('/watchlist')}>&#10003; On Watchlist</button> : <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>}
                     <button type="button" onClick={() => addToSeen(id)}>Seen It</button>
                 </div>
                 )}
