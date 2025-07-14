@@ -5,12 +5,14 @@ import useWatchlistOperations from './hooks/useWatchlistOperations';
 import {useParams} from 'react-router-dom';
 import {DataContext} from './context/DataContext';
 import {useContext} from 'react';
+import { useAddToSeen } from './hooks/useSeenOperations';
 
 const MoviePage = () => {
     const {id} = useParams();
     const movieSearch = useMovie(id);
     const castSearch = useCast(id);
     const {addToWatchlist, isLoading, error} = useWatchlistOperations();
+    const {addToSeen} = useAddToSeen();
     const {movie} = movieSearch;
     const {cast} = castSearch;
     const {genres, isAuth} = useContext(DataContext);
@@ -51,7 +53,7 @@ const MoviePage = () => {
                 {isAuth && (
                 <div className="AddButtonWrapper">
                     <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>
-                    <button type="button">Seen It</button>
+                    <button type="button" onClick={() => addToSeen(id)}>Seen It</button>
                 </div>
                 )}
             </div>

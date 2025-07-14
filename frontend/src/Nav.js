@@ -8,18 +8,22 @@ const Nav = () => {
 
   return (
     <div className="Nav">
-        <NavLink to="/" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Home</NavLink>
-        <NavLink to="/discover" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Discover</NavLink>
-        <NavLink to="/popular" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Popular</NavLink>
-        <NavLink to="/top-rated" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Top Rated</NavLink>
-        {isAuth ? (
-          <NavLink to="/logout" className="NavLink">Logout</NavLink>
-        ) : (
-          <>
-            <NavLink to="/login" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Login</NavLink>
-            <NavLink to="/register" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Register</NavLink>
-          </>
-        )}
+        <div className="NavMiddle">
+          <NavLink to="/" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Home</NavLink>
+          <NavLink to="/discover" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Discover</NavLink>
+          <NavLink to="/popular" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Popular</NavLink>
+          <NavLink to="/top-rated" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Top Rated</NavLink>
+        </div>
+        <div className="NavRight">
+          {isAuth ? (
+            <NavLink to="/logout" className="NavLink">Logout</NavLink>
+          ) : (
+            <>
+              <NavLink to="/login" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Login</NavLink>
+              <NavLink to="/register" className={({isActive}) => (isActive ? "NavLink active" : "NavLink")}>Register</NavLink>
+            </>
+          )}
+        </div>
     </div>
   )
 }
