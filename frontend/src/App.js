@@ -8,6 +8,7 @@ import Watchlist from './Watchlist';
 import { useEffect, useContext } from 'react';
 import {DataContext} from './context/DataContext';
 import Logout from './Logout';
+import Home from './Home';
 
 function App() {
   const {apiUrl} = useContext(DataContext);
@@ -34,6 +35,7 @@ function App() {
           <Router>
             <Header />
             <Routes>
+              <Route path='/' element={<Home />} />
               <Route path='/discover' element={<Discover />} />
               <Route path='/movie/:id' element={<MoviePage />} />
               <Route path='/register' element={<Register />} />
