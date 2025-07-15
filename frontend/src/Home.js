@@ -1,14 +1,26 @@
+import { useState } from 'react';
 import './css/Home.css';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Home = () => {
+  const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearchClick = (e) => {
+    e.preventDefault();
+    navigate({
+      pathname: '/search',
+      search: `?title=${searchText}`
+    });
+  };
+
   return (
     <div className="Home">
         <div className="SearchWrapper">
           <span>Search for a Movie</span>
           <form className="SearchForm">
-              <input className="SearchMovie" type="text" required></input>
-              <button type="submit" className="SubmitSearch">Search</button>
+              <input className="SearchMovie" type="text" value={searchText} onChange={(e) => setSearchText(e.target.value)} required></input>
+              <button type="submit" className="SubmitSearch" onClick={(e) => handleSearchClick(e)}>Search</button>
           </form>
         </div>
         <div className="MovieCategoriesWrapper">
