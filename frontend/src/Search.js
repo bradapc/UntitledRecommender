@@ -1,6 +1,7 @@
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, Link } from "react-router-dom"
 import { useSearchMovie } from "./hooks/useSearchMovie";
 import { useEffect } from "react";
+import './css/Search.css';
 
 const Search = () => {
     const [searchParams] = useSearchParams();
@@ -17,10 +18,12 @@ const Search = () => {
         </h3>
         {searchResult && searchResult.movieResult && (
             searchResult.movieResult.results.map(movie => (
-                <div key={movie.id}>
-                    <img style={{width: '50px', height: '50px'}} src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="MoviePoster"></img>
-                    <span>{movie.title}</span>
-                    <span>{movie.release_date}</span>
+                <div key={movie.id} className="SearchMovieContainer">
+                    <img className="SearchMoviePoster" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="MoviePoster"></img>
+                    <div className="SearchMovieTextWrapper">
+                        <Link to={`/movie/${movie.id}`}><span className="SearchMovieTitle">{movie.title} ({movie.release_date.split('-')[0]})</span></Link>
+                        <span className="SearchMovieOverview">{movie.overview}</span>
+                    </div>
                 </div>
             ))
         )}
