@@ -1,6 +1,7 @@
 const db = require('../db');
 const searchAPI = require('../services/searchAPI');
 const {cacheMovie} = require('../services/cacheMovie');
+const {mergeOnId} = require('../services/mergeMovieInfo');
 
 const handleAddToWatchlist = async (req, res) => {
     if (!req.body) {
@@ -62,16 +63,6 @@ const getWatchlist = async (req, res) => {
         console.error(err);
         return res.status(500).json({"message": "Internal server error"});
     }
-};
-
-const mergeOnId = (watchlist, movies, genres) => {
-    return watchlist.map(watch => {
-        const movie = movies.find(m => m.id === watch.movie_id) || {};
-        delete movie.id;
-        const moviesGenre = genres.filter(genre => genre.movie_id === watch.movie_id);
-        const genreList = moviesGenre.map(entry => entry.genre_id);
-        return {...watch, ...movie, genres: genreList};
-    });
 };
 
 module.exports = {handleAddToWatchlist, getWatchlist, handleDelete};
