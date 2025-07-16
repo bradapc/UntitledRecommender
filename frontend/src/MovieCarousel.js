@@ -1,4 +1,9 @@
-const MovieCarousel = ({currentMovie, handleScrollBack, handleScrollForward}) => {
+import {useContext} from 'react';
+import { DiscoverContext } from './context/DiscoverContext';
+
+const MovieCarousel = () => {
+  const {currentMovie, handleScrollBack, handleScrollForward} = useContext(DiscoverContext);
+
   return (
     <div className="MovieCarousel">
         <button className="carousel-arrow carousel-arrow--prev"

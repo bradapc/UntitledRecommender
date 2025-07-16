@@ -1,12 +1,12 @@
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {DataContext} from './context/DataContext';
+import { DiscoverContext } from './context/DiscoverContext';
 
-const FilterSelector = ({
+const FilterSelector = () => {
+    const {genres, sortBy} = useContext(DataContext);
+    const {
     sortBySelection, setSortBySelection, genreCheckboxes, setGenreCheckboxes, minYearSelection, setMinYearSelection, maxYearSelection, setMaxYearSelection, handleFilterSubmit,
-    englishOnly, setEnglishOnly, handleReset
-}) => {
-    const {genres} = useContext(DataContext);
-    const {sortBy} = useContext(DataContext);
+    englishOnly, setEnglishOnly, handleReset} = useContext(DiscoverContext);
 
     const handleCheckedGenre = (e) => {
         const updatedGenreCheckboxes = genreCheckboxes.map(genreCbx => 
