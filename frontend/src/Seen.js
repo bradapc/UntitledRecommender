@@ -3,12 +3,12 @@ import { DataContext } from './context/DataContext';
 import { useNavigate } from 'react-router-dom';
 import { useSeen } from './hooks/useSeen';
 import './css/Seen.css';
+import RatingBox from './RatingBox';
 
 const Seen = () => {
   const {isAuth, genres} = useContext(DataContext);
   const navigate = useNavigate();
   const {seenList} = useSeen();
-  console.log(seenList);
 
   useEffect(() => {
     if (!isAuth) {
@@ -30,6 +30,7 @@ const Seen = () => {
               </div>
                 <h3>{movie.title}</h3>
                 <span>{movie.overview}</span>
+                <RatingBox movie_id={movie.movie_id} currentRating={movie.rating}/>
               </div>
             </div>
           ))
