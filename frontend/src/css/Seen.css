@@ -53,7 +53,7 @@
     padding: 8px;
 }
 
-.ReviewBox button {
+.Seen button {
     width: 120px;
     height: 35px;
     padding: 8px;
@@ -66,7 +66,22 @@
     cursor: pointer;
 }
 
-.ReviewBox button:hover {
+.Seen button:hover {
     background-color: #65caff;
     transition: 0.2s;
+}
+
+.AddedReview button {
+    width: 140px;
+}
+
+.AddedReview button:hover {
+    background-color: red;
+}
+
+.AddedReview {
+    display: flex;
+    font-size: 1.2rem;
+    gap: 8px;
+    flex-direction: column;
 }

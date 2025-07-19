@@ -30,7 +30,12 @@ const SeenMovie = ({movie, setSeenList}) => {
         <h3>{movie.title}</h3>
         <span>{movie.overview}</span>
         <RatingBox movie_id={movie.movie_id} currentRating={movie.rating}/>
-        {movie.review != null ? movie.review : (
+        {movie.review != null ? (
+            <div className="AddedReview">
+                <span>{movie.review}</span>
+                <button onClick={(e) => handleSubmitClicked(e, null)}>Delete Review</button>
+            </div>
+        ) : (
             <ReviewBox movie_id={movie.movie_id} handleSubmitClicked={handleSubmitClicked} />
         )}
         </div>

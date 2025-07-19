@@ -4,7 +4,7 @@ import {useContext, useState} from 'react';
 export function useAddSeenReview() {
     const {apiUrl} = useContext(DataContext);
     const updateSeenReview = async (movie_id, review) => {
-        if (!movie_id || review == undefined || review == null) {
+        if (!movie_id) {
             return;
         }
         try {

@@ -20,7 +20,7 @@ const Seen = () => {
     <div className="Seen">
         {seenList.length > 0 && (
           seenList.map(movie => (
-              <SeenMovie movie={movie} setSeenList={setSeenList} />
+              <SeenMovie key={movie.movie_id} movie={movie} setSeenList={setSeenList} />
           ))
         )}
     </div>

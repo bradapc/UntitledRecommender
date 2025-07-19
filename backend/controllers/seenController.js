@@ -89,7 +89,7 @@ const patchSeenMovie = async (req, res) => {
             console.error(err);
             return res.status(500).json({"error": "Internal server error"})
         }
-    } else if (review != undefined && review != null) {
+    } else if (review !== undefined) {
         try {
             await db.query('UPDATE movies_seen SET review = $1 WHERE user_id = $2 AND movie_id = $3', [review, req.userId, movie_id]);
             return res.status(200).json({"message": "Review updated successfully"})
