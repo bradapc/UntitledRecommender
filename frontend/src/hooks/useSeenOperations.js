@@ -1,6 +1,31 @@
 import {DataContext} from '../context/DataContext';
 import {useContext, useState} from 'react';
 
+export function useAddSeenReview() {
+    const {apiUrl} = useContext(DataContext);
+    const updateSeenReview = async (movie_id, review) => {
+        if (!movie_id || review == undefined || review == null) {
+            return;
+        }
+        try {
+            const response = await fetch(`${apiUrl}/seen/${movie_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({review})
+            })
+            if (!response.ok) {
+                console.error('Failed to update review');
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    return {updateSeenReview};
+}
+
 export function useUpdateSeenRating() {
     const {apiUrl} = useContext(DataContext);
     const updateSeenRating = async (movie_id, rating) => {

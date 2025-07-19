@@ -37,5 +37,5 @@ export function useSeen() {
         getSeenMovies();
     }, [apiUrl, refresh, isAuth]);
 
-    return {seenList, error, isLoading};
+    return {seenList, setSeenList, error, isLoading};
 }

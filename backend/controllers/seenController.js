@@ -75,18 +75,28 @@ const getSeenMovies = async (req, res) => {
 const patchSeenMovie = async (req, res) => {
     const {rating, review} = req.body;
     const movie_id = req.params.movie_id;
-    if (isNaN(Number(rating))) {
-        return res.status(400).json({"error": "Rating must be a number."});
-    }
-    if (rating < 0 || rating > 5) {
-        return res.status(400).json({"error": "Rating must be between 0 and 5"});
-    }
-    try {
-        await db.query('UPDATE movies_seen SET rating = $1 WHERE user_id = $2 AND movie_id = $3', [rating, req.userId, movie_id]);
-        return res.status(200).json({"message": "Rating updated successfully"})
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({"error": "Internal server error"})
+    if (rating != undefined && rating != null) {
+        if (isNaN(Number(rating))) {
+            return res.status(400).json({"error": "Rating must be a number."});
+        }
+        if (rating < 0 || rating > 5) {
+            return res.status(400).json({"error": "Rating must be between 0 and 5"});
+        }
+        try {
+            await db.query('UPDATE movies_seen SET rating = $1 WHERE user_id = $2 AND movie_id = $3', [rating, req.userId, movie_id]);
+            return res.status(200).json({"message": "Rating updated successfully"})
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({"error": "Internal server error"})
+        }
+    } else if (review != undefined && review != null) {
+        try {
+            await db.query('UPDATE movies_seen SET review = $1 WHERE user_id = $2 AND movie_id = $3', [review, req.userId, movie_id]);
+            return res.status(200).json({"message": "Review updated successfully"})
+        } catch (err) {
+            console.error(err);
+            return res.status(500).json({"error": "Internal server error"})
+        }
     }
 };
 
