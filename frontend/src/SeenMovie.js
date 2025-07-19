@@ -22,22 +22,22 @@ const SeenMovie = ({movie, setSeenList}) => {
     <div className="SeenMovie" key={movie.movie_id}>
         <img className="SeenMoviePoster" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="MoviePoster"></img>
         <div className="SeenInfoText">
-        <div className="genreTags">
-        {movie.genres && movie.genres.map(genre => (
-            <span key={genre} className="genreTag">{genres[genre]}</span>
-        ))}
-        </div>
-        <h3>{movie.title}</h3>
-        <span>{movie.overview}</span>
-        <RatingBox movie_id={movie.movie_id} currentRating={movie.rating}/>
-        {movie.review != null ? (
-            <div className="AddedReview">
-                <span>{movie.review}</span>
-                <button onClick={(e) => handleSubmitClicked(e, null)}>Delete Review</button>
+            <div className="genreTags">
+                {movie.genres && movie.genres.map(genre => (
+                    <span key={genre} className="genreTag">{genres[genre]}</span>
+                ))}
             </div>
-        ) : (
-            <ReviewBox movie_id={movie.movie_id} handleSubmitClicked={handleSubmitClicked} />
-        )}
+            <h3>{movie.title} ({movie.release_date.slice(0, 4)})</h3>
+            <span>{movie.overview}</span>
+            <RatingBox movie_id={movie.movie_id} currentRating={movie.rating}/>
+            {movie.review != null ? (
+                <div className="AddedReview">
+                    <span>{movie.review}</span>
+                    <button onClick={(e) => handleSubmitClicked(e, null)}>Delete Review</button>
+                </div>
+            ) : (
+                <ReviewBox movie_id={movie.movie_id} handleSubmitClicked={handleSubmitClicked} />
+            )}
         </div>
     </div>
   )

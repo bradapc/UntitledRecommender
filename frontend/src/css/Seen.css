@@ -85,3 +85,18 @@
     gap: 8px;
     flex-direction: column;
 }
+
+.SeenFilterOptions {
+    display: flex;
+    flex-direction: column;
+}
+
+#rating {
+    background-color: grey;
+    border: none;
+    color: gold;
+    font-weight: 700;
+    font-size: 20px;
+    height: 40px;
+    width: 160px;
+}
