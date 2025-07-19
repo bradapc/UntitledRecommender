@@ -10,8 +10,8 @@
 }
 
 .SeenMoviePoster {
-    width: 200px;
-    height: 300px;
+    width: 210px;
+    height: 330px;
 }
 
 .SeenInfoText {
@@ -19,6 +19,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
 }
 
 .RatingBox {
@@ -27,10 +28,45 @@
 
 .Star {
     user-select: none;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     color: grey;
 }
 
 .Star.checked {
     color: gold;
+}
+
+.ReviewBox {
+    width: 100%;
+    height: 100%;
+}
+
+.ReviewBox textarea {
+    width: 100%;
+    height: 60px;
+    background-color: #bbb;
+    resize: none;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 8px;
+}
+
+.ReviewBox button {
+    width: 120px;
+    height: 35px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3aaaff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ReviewBox button:hover {
+    background-color: #65caff;
+    transition: 0.2s;
 }
