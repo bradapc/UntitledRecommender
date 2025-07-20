@@ -86,6 +86,11 @@
     flex-direction: column;
 }
 
+.SeenFilterForm {
+    display: flex;
+    flex-direction: column;
+}
+
 .SeenFilterOptions {
     display: flex;
     gap: 16px;
@@ -98,16 +103,28 @@
 }
 
 .SeenFilter input {
-    width: 30%;
+    width: 50%;
     height: 30px;
     border-radius: 1rem;
     border: none;
     font-size: 1.5rem;
     padding: 8px;
-    margin-top: 16px;
+    margin-bottom: 8px;
 }
 
-.SeenFilterOptions select {
+#sortByDirectionButton {
+    width: 45px;
+    height: 45px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.Seen label {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.SeenFilter select {
     background-color: grey;
     border: none;
     color: gold;
