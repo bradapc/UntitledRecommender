@@ -23,10 +23,16 @@ const SeenMovie = ({movie, setSeenList}) => {
     <div className="SeenMovie" key={movie.movie_id}>
         <img className="SeenMoviePoster" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="MoviePoster"></img>
         <div className="SeenInfoText">
-            <div className="genreTags">
-                {movie.genres && movie.genres.map(genre => (
-                    <span key={genre} className="genreTag">{genres[genre]}</span>
-                ))}
+            <div className="SeenInfoHead">
+                <div className="genreTags">
+                    {movie.genres && movie.genres.map(genre => (
+                        <span key={genre} className="genreTag">{genres[genre]}</span>
+                    ))}
+                </div>
+                <div className="WatchedAtText">
+                    {movie.watched_at.split('T')[0]}
+                    <span className="WatchedAtTooltip">Date added</span>
+                    </div>
             </div>
             <Link to={`/movie/${movie.movie_id}`}><h3>{movie.title} ({movie.release_date.slice(0, 4)})</h3> </Link>
             <span>{movie.overview}</span>
