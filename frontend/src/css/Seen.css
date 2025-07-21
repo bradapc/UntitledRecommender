@@ -125,9 +125,9 @@
 }
 
 .SeenFilter select {
-    background-color: grey;
+    background-color: #3aaaff;
     border: none;
-    color: gold;
+    color: #fff;
     font-weight: 700;
     font-size: 20px;
     border-radius: 8px;
