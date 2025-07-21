@@ -3,6 +3,7 @@ import RatingBox from './RatingBox';
 import ReviewBox from './ReviewBox';
 import { DataContext } from './context/DataContext';
 import { useAddSeenReview } from './hooks/useSeenOperations';
+import { Link } from 'react-router-dom';
 
 const SeenMovie = ({movie, setSeenList}) => {
     const {genres} = useContext(DataContext);
@@ -27,7 +28,7 @@ const SeenMovie = ({movie, setSeenList}) => {
                     <span key={genre} className="genreTag">{genres[genre]}</span>
                 ))}
             </div>
-            <h3>{movie.title} ({movie.release_date.slice(0, 4)})</h3>
+            <Link to={`/movie/${movie.movie_id}`}><h3>{movie.title} ({movie.release_date.slice(0, 4)})</h3> </Link>
             <span>{movie.overview}</span>
             <RatingBox movie_id={movie.movie_id} currentRating={movie.rating}/>
             {movie.review != null ? (

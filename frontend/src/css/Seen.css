@@ -135,3 +135,13 @@
     width: 160px;
     padding: 8px;
 }
+
+.SeenInfoText a {
+    text-decoration: none;
+}
+
+.SeenInfoText a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #fff;
+}
