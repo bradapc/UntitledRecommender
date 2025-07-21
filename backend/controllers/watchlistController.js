@@ -1,7 +1,6 @@
 const db = require('../db');
 const searchAPI = require('../services/searchAPI');
 const {cacheMovie} = require('../services/cacheMovie');
-const {mergeOnId} = require('../services/mergeMovieInfo');
 
 const handleAddToWatchlist = async (req, res) => {
     if (!req.body) {
@@ -53,12 +52,8 @@ const getWatchlist = async (req, res) => {
         return res.status(401).json({"message": 'Unauthorized: userId missing'});
     }
     try {
-        const dbres = await db.query('SELECT * FROM watchlist WHERE user_id = $1', [req.userId]);
-        const movieIds = dbres.rows.map(movie => movie.movie_id);
-        const movieInfo = await db.query('SELECT * FROM movie WHERE id = ANY($1::int[])', [movieIds]);
-        const genreInfo = await db.query('SELECT * FROM movie_genre WHERE movie_id = ANY($1::int[])', [movieIds]);
-        const combined = {"watchlist": mergeOnId(dbres.rows, movieInfo.rows, genreInfo.rows)};
-        return res.status(200).json(combined);
+        const watchlist = await db.query('SELECT movie.*, watchlist.*, ARRAY_AGG(movie_genre.genre_id) AS genres FROM watchlist JOIN movie ON watchlist.movie_id=movie.id JOIN movie_genre ON watchlist.movie_id=movie_genre.movie_id WHERE user_id = $1 GROUP BY watchlist.id, movie.id', [req.userId]);
+        return res.status(200).json({watchlist: watchlist.rows});
     } catch (err) {
         console.error(err);
         return res.status(500).json({"message": "Internal server error"});
