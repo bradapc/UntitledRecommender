@@ -1,6 +1,30 @@
 import {DataContext} from '../context/DataContext';
 import {useContext, useState} from 'react';
 
+export function useRemoveSeenMovie() {
+    const {apiUrl} = useContext(DataContext);
+    const removeSeenMovie = async (movie_id) => {
+        if (!movie_id) {
+            return;
+        }
+        try {
+            const response = await fetch(`${apiUrl}/seen/${movie_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            if (!response.ok) {
+                throw new Error("Could not delete movie from database.");
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    return {removeSeenMovie};
+}
+
 export function useAddSeenReview() {
     const {apiUrl} = useContext(DataContext);
     const updateSeenReview = async (movie_id, review) => {

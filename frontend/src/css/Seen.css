@@ -86,7 +86,7 @@
     padding: 8px;
 }
 
-.Seen button {
+button {
     width: 120px;
     height: 35px;
     padding: 8px;
@@ -99,9 +99,21 @@
     cursor: pointer;
 }
 
-.Seen button:hover {
+button:hover {
     background-color: #65caff;
     transition: 0.2s;
+}
+
+.DeleteSeenButton {
+    width: min-content;
+    margin-left: 16px;
+    font-size: 12px;
+    height: min-content;
+    background-color: red;
+}
+
+.DeleteSeenButton:hover {
+    background-color: rgb(189, 55, 55);
 }
 
 .AddedReview button {

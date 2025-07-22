@@ -1,13 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import RatingBox from './RatingBox';
 import ReviewBox from './ReviewBox';
 import { DataContext } from './context/DataContext';
-import { useAddSeenReview } from './hooks/useSeenOperations';
+import { useAddSeenReview, useRemoveSeenMovie } from './hooks/useSeenOperations';
 import { Link } from 'react-router-dom';
 
-const SeenMovie = ({movie, setSeenList}) => {
+const SeenMovie = ({movie, setSeenList, handleDeleteSeenMovie}) => {
     const {genres} = useContext(DataContext);
     const {updateSeenReview} = useAddSeenReview();
+    const {removeSeenMovie} = useRemoveSeenMovie();
 
     const handleSubmitClicked = (e, review) => {
           e.preventDefault();
@@ -29,10 +30,13 @@ const SeenMovie = ({movie, setSeenList}) => {
                         <span key={genre} className="genreTag">{genres[genre]}</span>
                     ))}
                 </div>
+                <div>
                 <div className="WatchedAtText">
                     {movie.watched_at.split('T')[0]}
                     <span className="WatchedAtTooltip">Date added</span>
                     </div>
+                    <button className="DeleteSeenButton" onClick={() => removeSeenMovie(movie.movie_id)}>X</button>
+                </div>
             </div>
             <Link to={`/movie/${movie.movie_id}`}><h3>{movie.title} ({movie.release_date.slice(0, 4)})</h3> </Link>
             <span>{movie.overview}</span>

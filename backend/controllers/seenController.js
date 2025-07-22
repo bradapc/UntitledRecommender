@@ -2,12 +2,12 @@ const db = require('../db');
 const searchAPI = require('../services/searchAPI');
 
 const removeSeenMovie = async (req, res) => {
-    if (!req.body || !req.userId || !req.body.movie_id) {
-        return res.status(400).json({"message": "Invalid request body"});
+    if (!req.userId || !req.params.movie_id) {
+        return res.status(400).json({"message": "Invalid request, please supply a movie id."});
     }
-
+    const {movie_id} = req.params;
     try {
-        const deleteCount = await db.query("DELETE FROM movies_seen WHERE user_id = $1 AND movie_id = $2", [req.userId, req.body.movie_id]);
+        const deleteCount = await db.query("DELETE FROM movies_seen WHERE user_id = $1 AND movie_id = $2", [req.userId, movie_id]);
         if (deleteCount.rowCount === 0) {
             return res.status(404).json({"message": "You have not seen this movie."});
         }
@@ -16,7 +16,7 @@ const removeSeenMovie = async (req, res) => {
         return res.status(500).json({"message": "Error when attempting to remove listing from database."});
     }
 
-    return res.status(200).json({"message": `Movie ${req.body.movie_id} has been removed from your seen list`});
+    return res.status(200).json({"message": `Movie ${movie_id} has been removed from your seen list`});
 };
 
 const addSeenMovie = async (req, res) => {
