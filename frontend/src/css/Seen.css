@@ -105,15 +105,15 @@ button:hover {
 }
 
 .DeleteSeenButton {
-    width: min-content;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
     margin-left: 16px;
-    font-size: 12px;
-    height: min-content;
-    background-color: red;
+    font-size: 8px;
 }
 
 .DeleteSeenButton:hover {
-    background-color: rgb(189, 55, 55);
+    background-color: red;
 }
 
 .AddedReview button {
