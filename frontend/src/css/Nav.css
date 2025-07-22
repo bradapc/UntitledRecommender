@@ -36,3 +36,24 @@
     position: absolute;
     right: 1em;
 }
+
+.NavRightWrapper {
+    display: flex;
+}
+
+.dropdown-user {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.nav-dropdown-content {
+    display: flex;
+    flex-direction: column;
+    background-color: #3aaaff;
+    z-index: 1;
+    position: absolute;
+    bottom: -200%;
+    left: -10%;
+}

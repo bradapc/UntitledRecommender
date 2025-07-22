@@ -1,8 +1,6 @@
 .Home {
-    background-color: #121212;
     width: 50vw;
     height: 50vh;
-    border-radius: 1rem;
     display: flex;
     align-items: center;
     flex-direction: column;
