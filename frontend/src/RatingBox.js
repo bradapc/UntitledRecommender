@@ -37,7 +37,7 @@ const RatingBox = ({movie_id, currentRating}) => {
     }, [selectedRating]);
 
     const handleHoverStar = (id) => {
-        if (selectedRating !== 0) {
+        if (Number(selectedRating) !== 0 && selectedRating !== null) {
             return;
         }
         const newRatingSelection = rating.map(star => {

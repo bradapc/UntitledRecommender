@@ -77,7 +77,7 @@ export function useUpdateSeenRating() {
 }
 
 export function useAddToSeen() {
-    const {apiUrl} = useContext(DataContext);
+    const {apiUrl, triggerRefresh} = useContext(DataContext);
     const [error, setError] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
@@ -97,6 +97,7 @@ export function useAddToSeen() {
             if (!response.ok) {
                 throw new Error("Could not add movie to seen list");
             }
+            triggerRefresh();
             return response.status;
         } catch (err) {
             setError(error);
