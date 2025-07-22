@@ -4,9 +4,10 @@ import useCast from './hooks/useCast';
 import useWatchlistOperations from './hooks/useWatchlistOperations';
 import {useParams, useNavigate} from 'react-router-dom';
 import {DataContext} from './context/DataContext';
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import { useAddToSeen } from './hooks/useSeenOperations';
 import { WatchlistContext } from './context/WatchlistContext';
+import { SeenContext } from './context/SeenContext';
 
 const MoviePage = () => {
     const {id} = useParams();
@@ -14,6 +15,7 @@ const MoviePage = () => {
     const castSearch = useCast(id);
     const {addToWatchlist, isLoading, error} = useWatchlistOperations();
     const {watchlist} = useContext(WatchlistContext);
+    const {seenList, setSeenList} = useContext(SeenContext);
     const {addToSeen} = useAddToSeen();
     const {movie} = movieSearch;
     const {cast} = castSearch;
@@ -23,11 +25,22 @@ const MoviePage = () => {
         style: 'currency',
         currency: 'USD'
     })
+    const [added, setAdded] = useState(false);
+
+    const handleAddToSeen = async () => {
+        const res = await addToSeen(id);
+        if (res === 200) {
+            setAdded(true);
+        }
+    };
 
     const isMovieOnWatchlist = () => {
         return watchlist.find(movie => movie.movie_id === Number(id));
-        
     };
+
+    const isMovieOnSeenlist = () => {
+        return seenList.find(movie => movie.id === Number(id))
+    }
 
   return (
     <div className="MoviePage">
@@ -60,8 +73,11 @@ const MoviePage = () => {
                 <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
                 {isAuth && (
                 <div className="AddButtonWrapper">
-                    {isMovieOnWatchlist() ? <button className="OnWatchlistButton" onClick={() => navigate('/watchlist')}>&#10003; On Watchlist</button> : <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>}
-                    <button type="button" onClick={() => addToSeen(id)}>Seen It</button>
+                    {!isMovieOnSeenlist() && isMovieOnWatchlist() && !added && <button className="OnWatchlistButton" onClick={() => navigate('/watchlist')}>&#10003; On Watchlist</button>}
+                    {!isMovieOnSeenlist() && !isMovieOnWatchlist() && !added && <button type="button" onClick={() => addToWatchlist(id)}>Watchlist</button>}
+                    {isMovieOnSeenlist() && !added && <span>Movie watched on {seenList.find(movie => movie.id===Number(id)).watched_at.split('T')[0]}</span>}
+                    {added && <span>Added to seen list!</span>}
+                    {!isMovieOnSeenlist() && !added && <button type="button" onClick={() => handleAddToSeen(id)}>Seen It</button>}
                 </div>
                 )}
             </div>

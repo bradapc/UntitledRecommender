@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { useSeen } from './hooks/useSeen';
 import './css/Seen.css';
 import SeenMovie from './SeenMovie';
+import { SeenContext } from './context/SeenContext';
 
 const Seen = () => {
   const {isAuth} = useContext(DataContext);
   const navigate = useNavigate();
-  const {seenList, setSeenList} = useSeen();
+  const {seenList, setSeenList} = useContext(SeenContext);
   const [filteredSeenList, setFilteredSeenList] = useState(seenList);
   const [filterRating, setFilterRating] = useState('any');
   const [reviewedStatus, setReviewedStatus] = useState('any');

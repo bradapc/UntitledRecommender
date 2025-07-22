@@ -5,6 +5,7 @@ import App from './App';
 import { DataContextProvider } from './context/DataContext';
 import { WatchlistContextProvider, WatchlistProviderContext } from './context/WatchlistContext';
 import { DiscoverContextProvider } from './context/DiscoverContext';
+import { SeenContextProvider } from './context/SeenContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,9 @@ root.render(
     <DataContextProvider>
       <WatchlistContextProvider>
         <DiscoverContextProvider>
-          <App />
+          <SeenContextProvider>
+            <App />
+          </SeenContextProvider>
         </DiscoverContextProvider>
       </WatchlistContextProvider>
     </DataContextProvider>
