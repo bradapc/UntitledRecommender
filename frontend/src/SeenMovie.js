@@ -10,6 +10,17 @@ const SeenMovie = ({movie, setSeenList, handleDeleteSeenMovie}) => {
     const {updateSeenReview} = useAddSeenReview();
     const {removeSeenMovie} = useRemoveSeenMovie();
 
+    const handleDeleteClicked = async () => {
+        const res = await removeSeenMovie(movie.movie_id)
+        if (res === 200) {
+            setSeenList(prevSeenList => (
+                prevSeenList.filter(seenMovie => {
+                    return seenMovie.movie_id !== movie.movie_id
+                })
+            ))
+        }
+    };
+
     const handleSubmitClicked = (e, review) => {
           e.preventDefault();
           setSeenList(prevSeenList => (
@@ -35,7 +46,7 @@ const SeenMovie = ({movie, setSeenList, handleDeleteSeenMovie}) => {
                     {movie.watched_at.split('T')[0]}
                     <span className="WatchedAtTooltip">Date added</span>
                     </div>
-                    <button className="DeleteSeenButton" onClick={() => removeSeenMovie(movie.movie_id)}>X</button>
+                    <button className="DeleteSeenButton" onClick={() => handleDeleteClicked()}>X</button>
                 </div>
             </div>
             <Link to={`/movie/${movie.movie_id}`}><h3>{movie.title} ({movie.release_date.slice(0, 4)})</h3> </Link>

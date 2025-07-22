@@ -18,6 +18,7 @@ export function useRemoveSeenMovie() {
             if (!response.ok) {
                 throw new Error("Could not delete movie from database.");
             }
+            return response.status;
         } catch (err) {
             console.error(err);
         }
