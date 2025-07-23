@@ -30,6 +30,9 @@ const MoviePage = () => {
     const handleAddToSeen = async () => {
         const res = await addToSeen(id);
         if (res === 200) {
+            movie.movie_id = Number(id);
+            movie.watched_at = new Date().toISOString();
+            setSeenList(prevList => [...prevList, movie])
             setAdded(true);
         }
     };
