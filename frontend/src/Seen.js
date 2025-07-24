@@ -9,7 +9,7 @@ import { SeenContext } from './context/SeenContext';
 const Seen = () => {
   const {isAuth} = useContext(DataContext);
   const navigate = useNavigate();
-  const {seenList, setSeenList} = useContext(SeenContext);
+  const {seenList, setSeenList, refresh} = useContext(SeenContext);
   const [filteredSeenList, setFilteredSeenList] = useState(seenList);
   const [filterRating, setFilterRating] = useState('any');
   const [reviewedStatus, setReviewedStatus] = useState('any');
@@ -21,6 +21,10 @@ const Seen = () => {
     e.preventDefault();
     setSortByDirection(prev => prev === 'ASC' ? 'DESC' : 'ASC');
   };
+
+  useEffect(() => {
+    refresh();
+  }, [])
 
   useEffect(() => {
       let filterList;

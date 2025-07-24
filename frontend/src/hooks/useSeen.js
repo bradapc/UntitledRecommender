@@ -6,7 +6,8 @@ export function useSeen() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [seenList, setSeenList] = useState([]);
-    const [refresh, setRefresh] = useState(false);
+    const [refreshToggle, setRefreshToggle] = useState(false);
+    const refresh = () => setRefreshToggle(prev => !prev);
 
     useEffect(() => {
         if (!isAuth) return;
@@ -35,7 +36,7 @@ export function useSeen() {
             }
         };
         getSeenMovies();
-    }, [apiUrl, refresh, isAuth]);
+    }, [apiUrl, refreshToggle, isAuth]);
 
-    return {seenList, setSeenList, error, isLoading};
+    return {seenList, setSeenList, error, isLoading, refresh};
 }

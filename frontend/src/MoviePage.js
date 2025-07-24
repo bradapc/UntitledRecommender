@@ -15,7 +15,7 @@ const MoviePage = () => {
     const castSearch = useCast(id);
     const {addToWatchlist, isLoading, error} = useWatchlistOperations();
     const {watchlist} = useContext(WatchlistContext);
-    const {seenList, setSeenList} = useContext(SeenContext);
+    const {seenList, setSeenList, refresh} = useContext(SeenContext);
     const {addToSeen} = useAddToSeen();
     const {movie} = movieSearch;
     const {cast} = castSearch;
@@ -30,9 +30,7 @@ const MoviePage = () => {
     const handleAddToSeen = async () => {
         const res = await addToSeen(id);
         if (res === 200) {
-            movie.movie_id = Number(id);
-            movie.watched_at = new Date().toISOString();
-            setSeenList(prevList => [...prevList, movie])
+            refresh();
             setAdded(true);
         }
     };
