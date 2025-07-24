@@ -10,7 +10,10 @@ const ListMovie = ({movie, handleRemoveClicked, handleWatchedClicked}) => {
 
   return (
     <div className="ListMovie" onClick={handleMovieClick} >
-        <img className="ListMoviePoster" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="Movie"></img>
+        <div className="ListMoviePosterWrapper">
+          <img className="ListMoviePoster" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt="Movie"></img>
+          <span className="ListMovieOverview">{movie.overview}</span>
+        </div>
         <span>{movie.title} ({movie.release_date.split("-")[0]})</span>
         <span>Priority: {movie.priority}</span>
         <span>Added on: {movie.added_at.split("T")[0]}</span>

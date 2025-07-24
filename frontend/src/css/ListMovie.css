@@ -9,9 +9,44 @@
     height: 375px;
 }
 
+.ListMoviePosterWrapper {
+    display: flex;
+    height: 375px;
+    position: relative;
+}
+
 .ListMovie:hover {
     transform: scale(1.03);
     transform-origin: center;
+}
+
+.ListMovie:hover .ListMoviePoster {
+    filter:contrast(0.3);
+    border-radius: 16px;
+}
+
+.ListMovie:hover .ListMovieOverview {
+    visibility: visible;
+}
+
+.ListMovieOverview {
+    visibility: hidden;
+    max-width: 250px;
+    max-height: 375px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    background: rgba(0,0,0,0.8);
+    border-radius: 16px;
+    text-align: center;
+    padding: 16px;
+    font-weight: 700;
+    user-select: none;
+    overflow: hidden;
 }
 
 .ListMovieButtonWrapper {

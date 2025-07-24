@@ -1,5 +1,6 @@
 import {DataContext} from '../context/DataContext';
 import {useContext, useState} from 'react';
+import { SeenContext } from '../context/SeenContext';
 
 export function useRemoveSeenMovie() {
     const {apiUrl} = useContext(DataContext);
@@ -53,6 +54,7 @@ export function useAddSeenReview() {
 
 export function useUpdateSeenRating() {
     const {apiUrl} = useContext(DataContext);
+    const {refresh} = useContext(SeenContext);
     const updateSeenRating = async (movie_id, rating) => {
         if (!movie_id || rating === undefined || rating == null || rating < 0 || rating > 5) {
             return;
@@ -69,6 +71,7 @@ export function useUpdateSeenRating() {
             if (!response.ok) {
                 console.error(`Failed to update rating ${response.status}`);
             }
+            refresh();
         } catch (err) {
             console.error(err);
         }

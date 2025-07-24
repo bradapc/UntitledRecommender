@@ -6,10 +6,12 @@ import './css/Watchlist.css';
 import {useRemoveFromWatchlist} from './hooks/useWatchlistOperations';
 import {useAddToSeen} from './hooks/useSeenOperations';
 import { WatchlistContext } from './context/WatchlistContext';
+import { SeenContext } from './context/SeenContext';
 
 const Watchlist = () => {
     const {isAuth} = useContext(DataContext);
     const {watchlist, isLoading, error} = useContext(WatchlistContext);
+    const {refresh} = useContext(SeenContext);
     const useRemove = useRemoveFromWatchlist();
     const useSeen = useAddToSeen();
     const navigate = useNavigate();
@@ -22,6 +24,7 @@ const Watchlist = () => {
     const handleWatchedClicked = (e, movie_id) => {
       e.stopPropagation();
       useSeen.addToSeen(movie_id);
+      refresh();
     };
 
     useEffect(() => {
