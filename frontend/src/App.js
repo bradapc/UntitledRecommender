@@ -11,6 +11,7 @@ import Logout from './Logout';
 import Home from './Home';
 import Search from './Search';
 import Seen from './Seen';
+import Popular from './Popular';
 
 function App() {
   const {apiUrl} = useContext(DataContext);
@@ -46,6 +47,7 @@ function App() {
               <Route path='/seen' element={<Seen />} />
               <Route path='/logout' element={<Logout />} />
               <Route path='/search' element={<Search />} />
+              <Route path='/popular' element={<Popular />} />
             </Routes>
           </Router>
     </div>

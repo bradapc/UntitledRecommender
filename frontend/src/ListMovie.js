@@ -16,7 +16,7 @@ const ListMovie = ({movie, handleRemoveClicked, handleWatchedClicked}) => {
         </div>
         <span>{movie.title} ({movie.release_date.split("-")[0]})</span>
         <span>Priority: {movie.priority}</span>
-        <span>Added on: {movie.added_at.split("T")[0]}</span>
+        <span>Added on {movie.added_at.split("T")[0]}</span>
         {movie.notes && <span>Notes</span>}
         <div className="ListMovieButtonWrapper">
           <button className="WatchedButton" onClick={(e) => handleWatchedClicked(e, movie.movie_id)}>Watched</button>

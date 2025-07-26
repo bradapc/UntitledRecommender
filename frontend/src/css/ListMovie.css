@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+span {
+    color: #fff;
+    font-weight: 600;
+}
+
 .ListMoviePoster {
     width: 250px;
     height: 375px;
@@ -13,6 +18,7 @@
     display: flex;
     height: 375px;
     position: relative;
+    margin-bottom: 8px;
 }
 
 .ListMovie:hover {
@@ -53,6 +59,7 @@
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    margin-top: 8px;
 }
 
 .ListMovieButtonWrapper button {

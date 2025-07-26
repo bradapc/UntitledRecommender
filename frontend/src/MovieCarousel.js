@@ -1,8 +1,7 @@
 import {useContext} from 'react';
-import { DiscoverContext } from './context/DiscoverContext';
 
-const MovieCarousel = () => {
-  const {currentMovie, handleScrollBack, handleScrollForward} = useContext(DiscoverContext);
+const MovieCarousel = ({movieContext}) => {
+  const {currentMovie, handleScrollBack, handleScrollForward} = useContext(movieContext);
 
   return (
     <div className="MovieCarousel">

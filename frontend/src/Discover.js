@@ -10,7 +10,7 @@ const Discover = () => {
     
     <div>
         {discover.length ?
-            <MovieCarousel />
+            <MovieCarousel movieContext={DiscoverContext}/>
         : <p>No movies found.</p>}
         <FilterSelector />
     </div>
