@@ -4,11 +4,6 @@
     align-items: center;
 }
 
-span {
-    color: #fff;
-    font-weight: 600;
-}
-
 .ListMoviePoster {
     width: 250px;
     height: 375px;

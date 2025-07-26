@@ -4,6 +4,15 @@
     gap: 16px;
 }
 
+.Seen a {
+    text-decoration: none;
+    color: #3aaaff;
+}
+
+.Seen a:hover {
+    text-decoration: underline;
+}
+
 .SeenMovie {
     display: flex;
     width: 60vw;

@@ -1,7 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
 import { DataContext } from './context/DataContext';
-import { useNavigate } from 'react-router-dom';
-import { useSeen } from './hooks/useSeen';
+import { useNavigate, Link } from 'react-router-dom';
 import './css/Seen.css';
 import SeenMovie from './SeenMovie';
 import { SeenContext } from './context/SeenContext';
@@ -112,7 +111,7 @@ const Seen = () => {
           ))
         )}
         {filteredSeenList.length === 0 && (
-          <span>Your search yielded no results. Please try again.</span>
+          <span>Your search yielded no results on your seen list. Please try again, or <Link to={`/search?title=${filterText}`}>click here to search for movies titled "{filterText}"</Link></span>
         )}
     </div>
   )
