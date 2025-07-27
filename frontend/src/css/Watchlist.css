@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     gap: 32px;
     padding: 32px;
+    justify-content: center;
 }
 
 .WatchlistWrapper h1, h3 {

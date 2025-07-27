@@ -48,4 +48,22 @@ const handleGetCast = async (req, res) => {
     }
 };
 
-module.exports = {handleSearch, handleGetCast}
+const handleGetPerson = async (req, res) => {
+    const {cast_id} = req.params;
+    if (!cast_id) {
+        return res.status(400).json({"message": "Error: You must supply a cast member id to get person info"})
+    }
+    try {
+        const personDbQuery = await db.query('SELECT * FROM movie_cast WHERE id = $1', [cast_id]);
+        if (personDbQuery.rows > 0) {
+            return res.status(200).json(personDbQuery.rows);
+        }
+        const personResult = await searchAPI.searchPersonById(cast_id);
+        return res.status(200).json(personResult);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({"error": "Internal server error"})
+    }
+};
+
+module.exports = {handleSearch, handleGetCast, handleGetPerson}
