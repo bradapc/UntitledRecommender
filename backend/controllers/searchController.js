@@ -54,16 +54,38 @@ const handleGetPerson = async (req, res) => {
         return res.status(400).json({"message": "Error: You must supply a cast member id to get person info"})
     }
     try {
-        const personDbQuery = await db.query('SELECT * FROM movie_cast WHERE id = $1', [cast_id]);
-        if (personDbQuery.rows > 0) {
-            return res.status(200).json(personDbQuery.rows);
+        const personDbQuery = await db.query(`SELECT movie_cast.*, ARRAY_AGG(JSON_BUILD_OBJECT
+            ('movie_id', casted_in.movie_id, 
+            'character', casted_in.character, 
+            'billing_order', casted_in.billing_order
+            ) ORDER BY casted_in.billing_order
+             ) AS movies FROM movie_cast LEFT JOIN casted_in ON movie_cast.id=casted_in.cast_id WHERE id = $1 GROUP BY movie_cast.id`, [cast_id]);
+        if (personDbQuery.rowCount > 0) {
+            if (personDbQuery.rows[0].movies.length < 10) {
+                cacheCastedIn(cast_id);
+            }
+            return res.status(200).json(personDbQuery.rows[0]);
         }
         const personResult = await searchAPI.searchPersonById(cast_id);
+        if (personResult.success != undefined && personResult.success === false) {
+            throw new Error("Error: Invalid cast id entered on handleGetPerson call in search");
+        }
+        await db.query("INSERT INTO movie_cast VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING", [personResult.id, personResult.name, personResult.profile_path, personResult.gender, personResult.biography, personResult.imdb_id, personResult.place_of_birth, personResult.birthday]);
+        cacheCastedIn(cast_id);
         return res.status(200).json(personResult);
     } catch (err) {
         console.error(err);
         return res.status(500).json({"error": "Internal server error"})
     }
+};
+
+const cacheCastedIn = async (cast_id) => {
+    const castedInResult = await searchAPI.searchCastedInByCastId(cast_id);
+        for (const entry of castedInResult.cast) {
+            const movieResult = await searchAPI.searchById(entry.id);
+            await cacheMovie(movieResult);
+            await db.query("INSERT INTO casted_in (movie_id, cast_id, character, billing_order) VALUES ($1, $2, $3, $4) ON CONFLICT (movie_id, cast_id) DO NOTHING", [entry.id, cast_id, entry.character, entry.order]);
+        }
 };
 
 module.exports = {handleSearch, handleGetCast, handleGetPerson}

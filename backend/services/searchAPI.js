@@ -24,4 +24,10 @@ const searchPersonById = async (cast_id) => {
     return jsonObj;
 };
 
-module.exports = {searchById, searchByTitle, searchCastByID, searchPersonById};
+const searchCastedInByCastId = async (cast_id) => {
+    const response = await fetch(`https://api.themoviedb.org/3/person/${cast_id}/movie_credits?language=en-US`, options);
+    const jsonObj = response.json();
+    return jsonObj
+};
+
+module.exports = {searchById, searchByTitle, searchCastByID, searchPersonById, searchCastedInByCastId};
