@@ -11,9 +11,11 @@ const cacheMovie = async (movieResult) => {
         await addMovieGenres(movieResult);
         await addMovieCast(movieResult.id);
         await db.query('COMMIT');
+        return 0;
     } catch(err) {
         await db.query('ROLLBACK');
         console.error(err);
+        return -1;
     }
 };
 
