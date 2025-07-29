@@ -62,14 +62,24 @@ const handleGetPerson = async (req, res) => {
             ) ORDER BY casted_in.billing_order
              ) AS movies FROM movie_cast LEFT JOIN casted_in ON movie_cast.id=casted_in.cast_id WHERE id = $1 GROUP BY movie_cast.id`, [cast_id]);
         if (personDbQuery.rowCount > 0) {
-            if (personDbQuery.rows[0].movies.length < 10) {
+            const person = personDbQuery.rows[0];
+            if (person.biography === null) {
+                const updatedPersonFetch = await limiter.schedule(() => searchAPI.searchPersonById(cast_id));
+                if (updatedPersonFetch.biography !== null) {
+                    await db.query("UPDATE movie_cast SET biography = $1, imdb_id = $2, place_of_birth = $3, birthday = $4 WHERE id = $5", [updatedPersonFetch.biography, updatedPersonFetch.imdb_id, updatedPersonFetch.place_of_birth, updatedPersonFetch.birthday, cast_id]);
+                    person.biography = updatedPersonFetch.biography;
+                    person.imdb_id = updatedPersonFetch.imdb_id;
+                    person.place_of_birth = updatedPersonFetch.place_of_birth;
+                    person.birthday = updatedPersonFetch.birthday;
+                }
+            }
+            if (person.movies.length < 10) {
                 const castedInResult = await getCastedInResult(cast_id);
                 cacheCastedIn(castedInResult, cast_id);
-                const personResult = personDbQuery.rows[0];
-                personResult.movies = castedInResult?.cast;
-                return res.status(200).json({personResult});
+                person.movies = castedInResult?.cast;
+                return res.status(200).json({personResult: person});
             }
-            return res.status(200).json({personResult: personDbQuery.rows[0]});
+            return res.status(200).json({personResult: person});
         }
         const personResult = await limiter.schedule(() => searchAPI.searchPersonById(cast_id));
         if (personResult.success != undefined && personResult.success === false) {
