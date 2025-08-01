@@ -12,6 +12,7 @@ import Home from './Home';
 import Search from './Search';
 import Seen from './Seen';
 import Popular from './Popular';
+import Cast from './Cast';
 
 function App() {
   const {apiUrl} = useContext(DataContext);
@@ -48,6 +49,7 @@ function App() {
               <Route path='/logout' element={<Logout />} />
               <Route path='/search' element={<Search />} />
               <Route path='/popular' element={<Popular />} />
+              <Route path='/cast/:id' element={<Cast />} />
             </Routes>
           </Router>
     </div>

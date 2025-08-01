@@ -1,0 +1,104 @@
+.CastPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 16px;
+}
+
+.CastMainWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.CastMovieMini {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.CastMovieMini:hover {
+    transform: scale(1.06);
+    transition: transform 0.2s ease;
+}
+
+.CastImageWrapper {
+    min-width: 25%;
+}
+
+.CastImageLarge {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.MainCastInfoWrapper {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px;
+    color: #e0e0e0;
+}
+
+.actor-name {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.actor-infop
+ {
+    font-size: 1rem;
+    color: #bbbbbb;
+    margin: 0.25rem 0;
+}
+
+
+.actor-biography {
+    font-size: 1.0rem;
+    color: #dddddd;
+    text-align: justify;
+    padding: 0;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.CastTextWrapper {
+    max-width: 75%;
+}
+
+.MoviesActedIn {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    gap: 16px;
+    max-height: 70%;
+}
+
+.CastMovieImage {
+    width: 120px;
+    height: 180px;
+    border-radius: 16px;
+}
+
+.CastMovieMiniTitle {
+    color: #fff;
+}
+
+.CastMovieMiniCharacter {
+    color: #ccc;
+}

@@ -58,9 +58,17 @@ const handleGetPerson = async (req, res) => {
         const personDbQuery = await db.query(`SELECT movie_cast.*, ARRAY_AGG(JSON_BUILD_OBJECT
             ('movie_id', casted_in.movie_id, 
             'character', casted_in.character, 
-            'billing_order', casted_in.billing_order
-            ) ORDER BY casted_in.billing_order
-             ) AS movies FROM movie_cast LEFT JOIN casted_in ON movie_cast.id=casted_in.cast_id WHERE id = $1 GROUP BY movie_cast.id`, [cast_id]);
+            'billing_order', casted_in.billing_order,
+            'title', movie.title,
+            'poster_path', movie.poster_path,
+            'release_date', movie.release_date,
+            'overview', movie.overview,
+            'budget', movie.budget,
+            'runtime', movie.runtime,
+            'revenue', movie.revenue
+            ) ORDER BY movie.revenue DESC
+             ) AS movies FROM movie_cast LEFT JOIN casted_in ON movie_cast.id=casted_in.cast_id
+              LEFT JOIN movie ON casted_in.movie_id=movie.id WHERE movie_cast.id = $1 GROUP BY movie_cast.id`, [cast_id]);
         if (personDbQuery.rowCount > 0) {
             const person = personDbQuery.rows[0];
             if (person.biography === null) {

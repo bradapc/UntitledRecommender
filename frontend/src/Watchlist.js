@@ -21,9 +21,9 @@ const Watchlist = () => {
       useRemove.removeFromWatchlist(movie_id);
     };
 
-    const handleWatchedClicked = (e, movie_id) => {
+    const handleWatchedClicked = async (e, movie_id) => {
       e.stopPropagation();
-      useSeen.addToSeen(movie_id);
+      await useSeen.addToSeen(movie_id);
       refresh();
     };
 
