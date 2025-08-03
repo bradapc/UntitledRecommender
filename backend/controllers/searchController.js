@@ -85,6 +85,7 @@ const handleGetPerson = async (req, res) => {
                 const castedInResult = await getCastedInResult(cast_id);
                 cacheCastedIn(castedInResult, cast_id);
                 person.movies = castedInResult?.cast;
+                person.movies = renameIdToMovieId(person);
                 return res.status(200).json({personResult: person});
             }
             return res.status(200).json({personResult: person});
@@ -96,12 +97,23 @@ const handleGetPerson = async (req, res) => {
         await db.query("INSERT INTO movie_cast VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT (id) DO NOTHING", [personResult.id, personResult.name, personResult.profile_path, personResult.gender, personResult.biography, personResult.imdb_id, personResult.place_of_birth, personResult.birthday]);
         const castedInResult = await getCastedInResult(cast_id);
         cacheCastedIn(castedInResult, cast_id);
-        personResult.movies = castedInResult?.cast;
+        personResult.movies = await castedInResult?.cast;
+        personResult.movies = renameIdToMovieId(personResult);
+        console.log(personResult.movies);
         return res.status(200).json({personResult});
     } catch (err) {
         console.error(err);
         return res.status(500).json({"error": "Internal server error"})
     }
+};
+
+const renameIdToMovieId = (personResult) => {
+    const newMovies = personResult.movies.map(movie => {
+            const newMovie = {...movie, movie_id: movie.id};
+            delete newMovie.id;
+            return newMovie;
+        })
+    return newMovies;
 };
 
 const getCastedInResult = async (cast_id) => {

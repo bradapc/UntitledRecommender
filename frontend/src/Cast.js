@@ -27,7 +27,7 @@ const Cast = () => {
                     </div>
                     <div className="CastTextWrapper">
                         <h1 className="actor-name">{castInfo.name}</h1>
-                        <p className="actor-infop">DOB: {castInfo.birthday.split('T')[0]}</p>
+                        <p className="actor-infop">DOB: {castInfo.birthday ? (`${castInfo.birthday.split('T')[0]}`) : (`Unknown`)}</p>
                         <p className="actor-infop">{gender[castInfo.gender]}</p>
                         <p className="actor-infop">Born: {castInfo.place_of_birth}</p>
                         <div className="MoviesActedIn">

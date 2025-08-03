@@ -89,7 +89,7 @@ const MoviePage = () => {
                 <h2 style={{textAlign: "center"}}>Cast</h2>
                 <div className="CastWrapper">
                     {cast.map(castMember => (
-                        <div className="Cast" key={castMember.id}>
+                        <div className="Cast" key={castMember.id} onClick={() => navigate(`/cast/${castMember.id}`)}>
                             {castMember.profile_path && <img className="CastImage" src={`https://image.tmdb.org/t/p/w185/${castMember.profile_path}`} alt="Cast Member"></img>}
                             {!castMember.profile_path && <div className="CastImageMissing"><span>no image found</span></div>}
                             <span className="CastName">{castMember.name}</span>
