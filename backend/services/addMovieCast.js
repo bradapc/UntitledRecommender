@@ -1,7 +1,6 @@
-const db = require('../db');
 const searchAPI = require('./searchAPI');
 
-const addMovieCast = async (id) => {
+const addMovieCast = async (id, db) => {
     try {
         const castAPICall = await searchAPI.searchCastByID(id);
         const castResult = await castAPICall.cast;

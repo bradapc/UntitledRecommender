@@ -1,6 +1,4 @@
-const db = require('../db');
-
-const addMovieGenres = async (movie) => {
+const addMovieGenres = async (movie, db) => {
     const {genres} = movie;
     const genreIds = genres.map(genre => genre.id);
     try {
