@@ -36,6 +36,10 @@ export const DiscoverContextProvider = ({children}) => {
         try {
             const response = await fetch(getParameterizedUrl());
             const result = await response.json();
+            result.forEach(movie => {
+                const img = new Image();
+                img.src = `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+            })
             setDiscover(prevDiscover => [...prevDiscover, ...result]);
         } catch (err) {
             console.log(err);
