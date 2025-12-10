@@ -16,7 +16,7 @@ const Movie = ({movie}) => {
             ))}
         </div>
           <div className="MoviePosterWrapper">
-          {!isLoaded && <div className="placeholder-movie-poster">Loading...</div>}
+          {!isLoaded && movie.poster_path != null && <div className="placeholder-movie-poster">Loading...</div>}
           <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
           className="MoviePoster"
           alt="Movie Poster"
