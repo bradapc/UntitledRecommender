@@ -24,6 +24,7 @@ app.use("/discover", require('./middleware/checkJWT'), require(path.join(__dirna
 app.use("/popular", require(path.join(__dirname, 'routes', 'popular.js')));
 app.use("/search", require(path.join(__dirname, 'routes', 'search')));
 app.use("/filters", require(path.join(__dirname, 'routes', 'filters')));
+app.use("/movie", require(path.join(__dirname, 'routes', 'movie.js')))
 
 app.use("/users", require(path.join(__dirname, 'routes', 'users')));
 
