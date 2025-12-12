@@ -14,7 +14,7 @@ function useMovie(id) {
             setLoading(true);
             setError(null);
             try {
-                const response = await fetch(`${apiUrl}/search/?id=${id}`);
+                const response = await fetch(`${apiUrl}/movie/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch movie');
                 }
