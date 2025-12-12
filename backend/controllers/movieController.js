@@ -32,7 +32,7 @@ const handleGetMovieReviews = async (req, res) => {
         if (!req || !req.params.id) {
             return res.status(400).json({"message": "Error: You must supply a movie id"});
         }
-        const movieReviewQuery = await db.query("SELECT user_id, rating, review FROM movies_seen WHERE movie_id = $1", [req.params.id]);
+        const movieReviewQuery = await db.query("SELECT user_id, username, rating, review FROM movies_seen JOIN users ON users.id=movies_seen.user_id WHERE movie_id = $1", [req.params.id]);
         if (movieReviewQuery.rowCount > 0) {
             const movieReviewsJson = {"reviews": movieReviewQuery.rows}
             return res.status(200).json(movieReviewsJson)

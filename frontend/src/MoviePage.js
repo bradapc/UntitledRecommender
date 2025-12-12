@@ -1,5 +1,6 @@
 import './css/MoviePage.css';
 import useMovie from './hooks/useMovie';
+import useMovieReviews from './hooks/useMovieReviews';
 import useCast from './hooks/useCast';
 import useWatchlistOperations from './hooks/useWatchlistOperations';
 import {useParams, useNavigate} from 'react-router-dom';
@@ -12,6 +13,7 @@ import { SeenContext } from './context/SeenContext';
 const MoviePage = () => {
     const {id} = useParams();
     const movieSearch = useMovie(id);
+    const reviewSearch = useMovieReviews(id);
     const castSearch = useCast(id);
     const {addToWatchlist, isLoading, error} = useWatchlistOperations();
     const {watchlist} = useContext(WatchlistContext);
@@ -19,6 +21,7 @@ const MoviePage = () => {
     const {addToSeen} = useAddToSeen();
     const {movie} = movieSearch;
     const {cast} = castSearch;
+    const {movieReviews} = reviewSearch;
     const {genres, isAuth} = useContext(DataContext);
     const navigate = useNavigate();
     const formatter = new Intl.NumberFormat('en-US', {
@@ -41,6 +44,17 @@ const MoviePage = () => {
 
     const isMovieOnSeenlist = () => {
         return seenList.find(movie => movie.id === Number(id))
+    }
+
+    const getRatingContent = (review) => {
+        if (!review || !review.rating) {
+            return ""
+        }
+        let str = "";
+        for (let i = 0; i < review.rating; i++) {
+            str += "★"
+        }
+        return str;
     }
 
   return (
@@ -84,7 +98,7 @@ const MoviePage = () => {
             </div>
         </div>
         )}
-        {cast.length && !cast.loading && (
+        {cast.length > 0 && !cast.loading && (
             <div className="CastContainer">
                 <h2 style={{textAlign: "center"}}>Cast</h2>
                 <div className="CastWrapper">
@@ -97,6 +111,18 @@ const MoviePage = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+        )}
+        {movieReviews && movieReviews.length > 0 && !movieReviews.loading && (
+            <div className="ReviewContainer">
+                <h2 style={{textAlign: "center"}}>Reviews</h2>
+                {movieReviews.map((review, idx) => (
+                    <div className="Review" key={idx}>
+                        <span>{review.username}</span>
+                        <span className="Star checked">{getRatingContent(review)}</span>
+                        <span>{review.review}</span>
+                    </div>
+                ))}
             </div>
         )}
     </div>
