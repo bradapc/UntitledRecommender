@@ -3,7 +3,7 @@ import {DataContext} from './context/DataContext';
 import { DiscoverContext } from './context/DiscoverContext';
 
 const FilterSelector = () => {
-    const {genres, sortBy} = useContext(DataContext);
+    const {sortBy} = useContext(DataContext);
     const {
     sortBySelection, setSortBySelection, genreCheckboxes, setGenreCheckboxes, minYearSelection, setMinYearSelection, maxYearSelection, setMaxYearSelection, handleFilterSubmit,
     englishOnly, setEnglishOnly, handleReset} = useContext(DiscoverContext);
@@ -16,15 +16,6 @@ const FilterSelector = () => {
         );
         setGenreCheckboxes(updatedGenreCheckboxes);
     };
-
-    useEffect(() => {
-        setGenreCheckboxes(Object.keys(genres).map(key => ({
-        id: key,
-        name: genres[key],
-        checked: false
-        })))
-    }, [genres])
-
 
   return (
     <form className="FilterSelector">

@@ -15,6 +15,7 @@ export const DiscoverContextProvider = ({children}) => {
     const currentMovie = movieComponents[currentIndex];
 
     //Filter Options
+    const {genres} = useContext(DataContext);
     const [sortBySelection, setSortBySelection] = useState('random');
     const [genreCheckboxes, setGenreCheckboxes] = useState([]);
     const [minYearSelection, setMinYearSelection] = useState('');
@@ -63,6 +64,14 @@ export const DiscoverContextProvider = ({children}) => {
         setDiscover([]);
         setRequestNewDiscover(!requestNewDiscover);
     }, [requestClearDiscover]);
+
+    useEffect(() => {
+        setGenreCheckboxes(Object.keys(genres).map(key => ({
+        id: key,
+        name: genres[key],
+        checked: false
+        })))
+    }, [genres])
 
     const getSelectedGenres = () => {
         return genreCheckboxes.filter(genreCbx => genreCbx.checked).map(genreCbx => genreCbx.id);
