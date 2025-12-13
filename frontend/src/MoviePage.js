@@ -84,8 +84,8 @@ const MoviePage = () => {
                     <p className="movie-runtime"><strong>Runtime:</strong> {Math.floor(movie.runtime / 60)}h {movie.runtime % 60}m</p>
                 )}
                 <p className="movie-overview">{movie.overview}</p>
-                <p className="movie-budget"><strong>Budget:</strong> {formatter.format(movie.budget)}</p>
-                <p className="movie-revenue"><strong>Revenue:</strong> {formatter.format(movie.revenue)}</p>
+                <p className="movie-budget"><strong>Budget:</strong> {movie.budget > 0 ? formatter.format(movie.budget) : "N/A"}</p>
+                <p className="movie-revenue"><strong>Revenue:</strong> {movie.budget > 0 ? formatter.format(movie.revenue) : "N/A"}</p>
                 {isAuth && (
                 <div className="AddButtonWrapper">
                     {!isMovieOnSeenlist() && isMovieOnWatchlist() && !added && <button className="OnWatchlistButton" onClick={() => navigate('/watchlist')}>&#10003; On Watchlist</button>}
