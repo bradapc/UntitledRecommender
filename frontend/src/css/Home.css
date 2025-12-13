@@ -1,6 +1,5 @@
 .Home {
-    width: 50vw;
-    height: 50vh;
+    width: 75vw;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -33,7 +32,7 @@
 }
 
 .SearchMovie {
-    width: 50%;
+    width: 30%;
     height: 30px;
     border-radius: 1rem;
     border: none;
@@ -62,6 +61,7 @@
 .MovieCategoriesWrapper {
     display: flex;
     gap: 32px;
+    flex-wrap: wrap;
 }
 
 .MovieCategoriesWrapper a {
@@ -71,7 +71,7 @@
 .MovieCategory {
     display: flex;
     flex-direction: column;
-    width: 10vw;
+    width: 12rem;
     background-color: #1f1f1f;
     border-radius: 16px;
     padding: 16px;

@@ -19,7 +19,7 @@ const Home = () => {
         <div className="SearchWrapper">
           <span>Search Movies</span>
           <form className="SearchForm">
-              <input className="SearchMovie" type="text" value={searchText} onChange={(e) => setSearchText(e.target.value)} required></input>
+              <input className="SearchMovie" placeholder="Search movies..." type="text" value={searchText} onChange={(e) => setSearchText(e.target.value)} required></input>
               <button type="submit" className="SubmitSearch" onClick={(e) => handleSearchClick(e)}>Search</button>
           </form>
         </div>

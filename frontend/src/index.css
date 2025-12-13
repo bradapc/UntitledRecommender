@@ -258,3 +258,32 @@ h1, h2, h3, h4, h5, p {
   cursor: pointer;
   margin-right: 8px;
 }
+
+/*
+Footer
+*/
+.FooterLinks {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  gap: 32px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: #3aaaff;
+}
+
+.FooterLink {
+  padding: 12px;
+  user-select: none;
+  color: white;
+  text-decoration: none;
+}
+
+.FooterLink:hover {
+  text-decoration: underline;
+}
