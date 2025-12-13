@@ -25,8 +25,8 @@ const handleLogin = async (req, res) => {
 
     res.cookie('jwt', token, {
         httpOnly: true,
-        secure: false, //DEV ONLY
-        sameSite: 'Lax',
+        secure: true,
+        sameSite: 'None',
         maxAge: 3600000,
         path: '/'
     });
