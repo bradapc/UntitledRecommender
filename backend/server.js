@@ -8,9 +8,20 @@ const verifyJWT = require('./middleware/verifyJWT');
 const apiOptions = require(path.join(__dirname, 'config', 'apiOptions.js'));
 const cors = require('cors');
 
+const allowedOrigins = [
+    'https://next-film-umber.vercel.app',
+    'http://localhost:3000'
+];
+
 app.use(cors({
-    origin: 'https://next-film-umber.vercel.app/',
-    credentials: true
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 app.use(express.json());
