@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { SeenContext } from './context/SeenContext'
 import './css/WatchlistRecent.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SeenlistRecent = () => {
     const {seenList, isLoading, error} = useContext(SeenContext)
@@ -32,6 +32,7 @@ const SeenlistRecent = () => {
                 </div>
             ))}
         </div>
+        <Link className="RecentRedirect" to='/seen'><h4>View All</h4></Link>
     </div>
   )
 }

@@ -28,3 +28,15 @@
 .RecentWatchlistMovie:hover {
     scale: 1.05;
 }
+
+.RecentRedirect {
+    text-align: end;
+    opacity: 0.7;
+    user-select: none;
+    color: white;
+    text-decoration: none;
+}
+
+.RecentRedirect:hover {
+    opacity: 1.0;
+}

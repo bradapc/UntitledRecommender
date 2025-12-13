@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { WatchlistContext } from './context/WatchlistContext'
 import './css/WatchlistRecent.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const WatchlistRecent = () => {
     const {watchlist, isLoading, error} = useContext(WatchlistContext)
@@ -32,6 +32,7 @@ const WatchlistRecent = () => {
                 </div>
             ))}
         </div>
+        <Link className="RecentRedirect" to='/watchlist'><h4>View All</h4></Link>
     </div>
   )
 }
