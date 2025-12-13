@@ -16,9 +16,21 @@
     user-select: none;
 }
 
+.RecentMovieTitle {
+    color: #fff;
+    font-weight: 700;
+}
+
+.RecentAddedOn {
+    color: #eee;
+}
+
+.RecentAddedOnDate {
+    color: #bbb
+}
+
 .RecentWatchlistMovie span {
     text-decoration: none;
-    color: white;
 }
 
 .RecentWatchlistMovie img {

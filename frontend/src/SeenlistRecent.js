@@ -26,9 +26,9 @@ const SeenlistRecent = () => {
                 <div className="RecentWatchlistMovie" key={movie.id}
                 onClick={() => navigate(`/movie/${movie.movie_id}`)}>
                     <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
-                    <span>{movie.title}</span>
-                    <span>Added on</span>
-                    <span>{movie.watched_at.split("T")[0]}</span>
+                    <span className="RecentMovieTitle">{movie.title}</span>
+                    <span className="RecentAddedOn">Added on</span>
+                    <span className="RecentAddedOnDate">{movie.watched_at.split("T")[0]}</span>
                 </div>
             ))}
         </div>
