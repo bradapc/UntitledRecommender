@@ -9,10 +9,12 @@ const WatchlistRecent = () => {
     const navigate = useNavigate()
     
     useEffect(() => {
-        const sortedWatchlist = structuredClone(watchlist)
-        .sort((a, b) => b.added_at.localeCompare(a.added_at))
-        .slice(0, 5);
-        setTop5Watchlist(sortedWatchlist)
+        if (watchlist !== undefined) {
+            const sortedWatchlist = structuredClone(watchlist)
+            .sort((a, b) => b.added_at.localeCompare(a.added_at))
+            .slice(0, 5);
+            setTop5Watchlist(sortedWatchlist)
+        }
     }, [watchlist])
 
   return (

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import './css/Home.css';
 import {Link, useNavigate} from 'react-router-dom';
 import WatchlistRecent from './WatchlistRecent';
+import SeenlistRecent from './SeenlistRecent';
 import { DataContext } from './context/DataContext';
 
 const Home = () => {
@@ -47,6 +48,7 @@ const Home = () => {
           </Link>
         </div>
         {isAuth && <WatchlistRecent /> }
+        {isAuth && <SeenlistRecent /> }
     </div>
   )
 }
