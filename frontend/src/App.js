@@ -14,6 +14,7 @@ import Seen from './Seen';
 import Popular from './Popular';
 import Cast from './Cast';
 import Footer from './Footer';
+import About from './About';
 
 function App() {
   const {apiUrl} = useContext(DataContext);
@@ -51,6 +52,7 @@ function App() {
               <Route path='/search' element={<Search />} />
               <Route path='/popular' element={<Popular />} />
               <Route path='/cast/:id' element={<Cast />} />
+              <Route path='/about' element={<About />} />
             </Routes>
             <Footer />
           </Router>

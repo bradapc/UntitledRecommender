@@ -1,0 +1,18 @@
+.AboutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    line-height: 1.6;
+}
+
+.AboutContainer p {
+    font-size: 20px;
+}
+
+.AboutButton {
+    margin-top: 32px;
+    width: 20rem;
+    height: 3.5rem;
+}
