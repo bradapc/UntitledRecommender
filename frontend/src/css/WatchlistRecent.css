@@ -1,0 +1,30 @@
+.WatchlistRecent {
+    margin: 32px;
+}
+
+.WatchlistRecentContainer {
+    display: flex;
+    gap: 32px;
+    padding: 16px;
+}
+
+.RecentWatchlistMovie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    user-select: none;
+}
+
+.RecentWatchlistMovie span {
+    text-decoration: none;
+    color: white;
+}
+
+.RecentWatchlistMovie img {
+    width: 100px;
+}
+
+.RecentWatchlistMovie:hover {
+    scale: 1.05;
+}

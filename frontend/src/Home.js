@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './css/Home.css';
 import {Link, useNavigate} from 'react-router-dom';
+import WatchlistRecent from './WatchlistRecent';
+import { DataContext } from './context/DataContext';
 
 const Home = () => {
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
+  const {isAuth} = useContext(DataContext)
 
   const handleSearchClick = (e) => {
     e.preventDefault();
@@ -43,6 +46,7 @@ const Home = () => {
             </div>
           </Link>
         </div>
+        {isAuth && <WatchlistRecent /> }
     </div>
   )
 }
