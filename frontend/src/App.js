@@ -16,6 +16,7 @@ import Cast from './Cast';
 import Footer from './Footer';
 import About from './About';
 import TMDB from './TMDB';
+import Terms from './Terms';
 
 function App() {
   const {apiUrl} = useContext(DataContext);
@@ -55,6 +56,7 @@ function App() {
               <Route path='/cast/:id' element={<Cast />} />
               <Route path='/about' element={<About />} />
               <Route path='/tmdb' element={<TMDB />} />
+              <Route path='/terms' element={<Terms />} />
             </Routes>
             <Footer />
           </Router>
