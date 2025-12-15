@@ -1,9 +1,10 @@
 .UserStats {
     display: flex;
     gap: 16px;
+    justify-content: center;
 }
 
-.Username {
+.UserInfoTitle {
     text-align: center;
 }
 
@@ -17,9 +18,51 @@
     width: 20vw;
     text-align: center;
     user-select: none;
+    margin: 20px 0 20px 0;
 }
 
 .UserDataStat {
     font-size: 2.5rem;
     color: #33aaff;
+}
+
+.UserMovieList {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 32px;
+    justify-content: center;
+}
+
+.UserMovie {
+    display: flex;
+    gap: 8px;
+    margin: 16px 16px 16px 16px;
+    background-color: #414446;
+    max-width: 50%;
+    padding: 20px;
+    border-radius: 32px;
+    color: #fff;
+    user-select: none;
+}
+
+.UserMovie:hover {
+    scale: 1.05;
+}
+
+.UserMovie img {
+    width: 80px;
+    height: 120px;
+}
+
+.UserMovieTitle {
+    font-size: 32px
+}
+
+.UserMovieTextContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.UserAddedOn {
+
 }

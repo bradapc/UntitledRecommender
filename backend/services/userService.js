@@ -13,7 +13,7 @@ const getWatchlistByID = async (userId) => {
 }
 
 const getSeenlist = async (userId) => {
-    return await db.query('SELECT * FROM movies_seen WHERE user_id = $1', [userId]);
+    return await db.query('SELECT movie.*, movies_seen.*, ARRAY_AGG(movie_genre.genre_id) AS genres FROM movie JOIN movies_seen ON movie.id=movies_seen.movie_id JOIN movie_genre ON movie.id=movie_genre.movie_id WHERE user_id = $1 GROUP BY movies_seen.movie_id, movies_seen.user_id, movie.id', [userId])
 }
 
 const getAverageRating = async (seenList) => {

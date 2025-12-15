@@ -1,19 +1,20 @@
 import React from 'react'
 import useUserSummary from './hooks/useUserSummary'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './css/User.css';
 
 const User = () => {
     const {id} = useParams();
     const {userData, error, loading} = useUserSummary(id)
-    console.log(userData);
+    const navigate = useNavigate();
+
   return (
     <div className="UserPage">
       {error && !loading && <span>{error.message}</span>}
       {loading && !error && <span>Loading...</span>}
       {!error && !loading && userData && (
         <div className="UserInfoContainer">
-            <h1 className="Username">{userData["username"]}</h1>
+            <h1 className="UserInfoTitle">{userData["username"]}</h1>
             <div className="UserStats">
                 <div className="UserStatContainer">
                     <span className="UserDataStat">{userData.stats.total_movies_watched}</span>
@@ -28,10 +29,30 @@ const User = () => {
                     <h3>Average Rating</h3>
                 </div>
             </div>
-            <div className="UserWatchlist">
+            <h1 className="UserInfoTitle">Watchlist</h1>
+            <div className="UserMovieList">
                 {userData.watchlist.map((movie) => (
-                    <div key={movie.id} className="UserMovie">
-                        <span>{movie.title}</span>
+                    <div key={movie.id} className="UserMovie"
+                    onClick={() => navigate(`/movie/${movie.movie_id}`)}>
+                        <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
+                        <div className="UserMovieTextContainer">
+                            <span className="UserMovieTitle">{movie.title}</span>
+                            {movie.added_at && <span className="UserAddedOn">Added on {movie.added_at.split("T")[0]}</span>}
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <h1 className="UserInfoTitle">Seen</h1>
+            <div className="UserMovieList">
+                {userData.seen.map((movie) => (
+                    <div key={movie.id} className="UserMovie"
+                    onClick={() => navigate(`/movie/${movie.movie_id}`)}>
+                        <img src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}></img>
+                        <div className="UserMovieTextContainer">
+                            <span className="UserMovieTitle">{movie.title}</span>
+                            {movie.watched_at && <span className="UserAddedOn">Watched {movie.watched_at.split("T")[0]}</span>}
+                            {movie.rating && <span>{movie.rating}<span className="Star checked">★</span></span>}
+                        </div>
                     </div>
                 ))}
             </div>

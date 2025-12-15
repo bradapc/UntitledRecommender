@@ -1,5 +1,6 @@
 const db = require('../db');
 const searchAPI = require('../services/searchAPI');
+const { getSeenlist } = require('../services/userService');
 
 const removeSeenMovie = async (req, res) => {
     if (!req.userId || !req.params.movie_id) {
@@ -59,7 +60,7 @@ const getSeenMovies = async (req, res) => {
         return res.status(401).json({"message": "Unauthorized: User ID missing"})
     }
     try {
-        const seen = await db.query('SELECT movie.*, movies_seen.*, ARRAY_AGG(movie_genre.genre_id) AS genres FROM movie JOIN movies_seen ON movie.id=movies_seen.movie_id JOIN movie_genre ON movie.id=movie_genre.movie_id WHERE user_id = $1 GROUP BY movies_seen.movie_id, movies_seen.user_id, movie.id', [req.userId])
+        const seen = await getSeenlist(req.userId);
         return res.status(200).json({seen: seen.rows});
     } catch (err) {
         console.error(err);
