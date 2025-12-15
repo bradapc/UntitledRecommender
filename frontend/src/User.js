@@ -29,9 +29,11 @@ const User = () => {
                 </div>
             </div>
             <div className="UserWatchlist">
-                {userData.watchlist.map((movie) => {
-                    <span>{movie.movie_id}</span>
-                })}
+                {userData.watchlist.map((movie) => (
+                    <div key={movie.id} className="UserMovie">
+                        <span>{movie.title}</span>
+                    </div>
+                ))}
             </div>
         </div>
       )}

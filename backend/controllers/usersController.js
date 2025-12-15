@@ -1,14 +1,14 @@
 const db = require('../db');
-const {userExists, getWatchlist, getSeenlist, getAverageRating, getUsernameByID} = require('../services/userService')
+const {userExists, getWatchlistByID, getSeenlist, getAverageRating, getUsernameByID} = require('../services/userService')
 
-const getWatchlistByID = async (req, res) => {
+const handleGetWatchlistByID = async (req, res) => {
     const userId = req.params.userId;
     try {
         const isUserValid = await userExists(userId)
         if (!isUserValid) {
             return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
         }
-        const userWatchlist = await getWatchlist(userId);
+        const userWatchlist = await getWatchlistByID(userId);
         return res.status(200).json({userId, watchlist: userWatchlist.rows});
     } catch (err) {
         console.log(err);
@@ -39,7 +39,7 @@ const getUserByID = async (req, res) => {
             return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
         }
         const userSeen = await getSeenlist(userId);
-        const userWatchlist = await getWatchlist(userId);
+        const userWatchlist = await getWatchlistByID(userId);
         const stats = {
             total_movies_watched: userSeen.rowCount,
             total_movies_watchlisted: userWatchlist.rowCount,
@@ -60,4 +60,4 @@ const getUserByID = async (req, res) => {
     }
 };
 
-module.exports = {getWatchlistByID, getSeenByID, getUserByID};
+module.exports = {handleGetWatchlistByID, getSeenByID, getUserByID};

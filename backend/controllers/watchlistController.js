@@ -1,6 +1,7 @@
 const db = require('../db');
 const searchAPI = require('../services/searchAPI');
 const {cacheMovie} = require('../services/cacheMovie');
+const {getWatchlistByID} = require('../services/userService')
 
 const handleAddToWatchlist = async (req, res) => {
     if (!req.body) {
@@ -52,7 +53,7 @@ const getWatchlist = async (req, res) => {
         return res.status(401).json({"message": 'Unauthorized: userId missing'});
     }
     try {
-        const watchlist = await db.query('SELECT movie.*, watchlist.*, ARRAY_AGG(movie_genre.genre_id) AS genres FROM watchlist JOIN movie ON watchlist.movie_id=movie.id JOIN movie_genre ON watchlist.movie_id=movie_genre.movie_id WHERE user_id = $1 GROUP BY watchlist.id, movie.id', [req.userId]);
+        const watchlist = await getWatchlistByID(req.userId);
         return res.status(200).json({watchlist: watchlist.rows});
     } catch (err) {
         console.error(err);

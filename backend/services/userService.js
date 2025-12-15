@@ -8,8 +8,8 @@ const userExists = async (userId) => {
     return true
 };
 
-const getWatchlist = async (userId) => {
-    return await db.query('SELECT * FROM watchlist WHERE user_id = $1', [userId]);
+const getWatchlistByID = async (userId) => {
+    return await db.query('SELECT movie.*, watchlist.*, ARRAY_AGG(movie_genre.genre_id) AS genres FROM watchlist JOIN movie ON watchlist.movie_id=movie.id JOIN movie_genre ON watchlist.movie_id=movie_genre.movie_id WHERE user_id = $1 GROUP BY watchlist.id, movie.id', [userId]);
 }
 
 const getSeenlist = async (userId) => {
@@ -34,4 +34,4 @@ const getUsernameByID = async (userId) => {
     return username;
 }
 
-module.exports = {userExists, getWatchlist, getSeenlist, getAverageRating, getUsernameByID}
+module.exports = {userExists, getWatchlistByID, getSeenlist, getAverageRating, getUsernameByID}
