@@ -22,6 +22,7 @@ import User from './User';
 function App() {
   const {apiUrl} = useContext(DataContext);
   const {setIsAuth} = useContext(DataContext);
+  const {setCurrentUserId} = useContext(DataContext);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -31,8 +32,10 @@ function App() {
         })
         const resJson = await response.json();
         setIsAuth(resJson.isAuthenticated);
+        setCurrentUserId(resJson.userId);
       } catch (err) {
         setIsAuth(false);
+        setCurrentUserId(null);
       }
     };
     

@@ -1,11 +1,13 @@
 import './css/Nav.css';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {useContext, useState} from 'react';
 import {DataContext} from './context/DataContext';
 
 const Nav = () => {
   const {isAuth} = useContext(DataContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const {currentUserId} = useContext(DataContext);
+  const navigate = useNavigate();
 
   const closeDropdown = () => setIsDropdownOpen(false);
 
@@ -22,8 +24,11 @@ const Nav = () => {
         <div className="NavRight">
           {isAuth ? (
             <div className="NavRightWrapper">
-              <div className="dropdown-user" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
-              <span className="NavLink">User</span>
+              <div className="dropdown-user" 
+              onMouseEnter={toggleDropdown} 
+              onMouseLeave={toggleDropdown}>
+              <span className="NavLink"
+              onClick={() => navigate(`/user/${currentUserId}`)}>User</span>
               {isDropdownOpen && <div className="nav-dropdown-content">
                   <NavLink to="/watchlist" className="NavLink" onClick={closeDropdown}>Watchlist</NavLink>
                   <NavLink to="/seen" className="NavLink" onClick={closeDropdown}>Seen</NavLink>
