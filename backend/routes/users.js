@@ -4,5 +4,6 @@ const usersController = require('../controllers/usersController');
 
 router.get('/:userId/watchlist', usersController.getWatchlistByID);
 router.get('/:userId/seen', usersController.getSeenByID);
+router.get('/:userId', usersController.getUserByID)
 
 module.exports = router;

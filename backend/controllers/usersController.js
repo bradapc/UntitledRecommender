@@ -1,15 +1,16 @@
 const db = require('../db');
+const {userExists, getWatchlist, getSeenlist, getAverageRating} = require('../services/userService')
+const {getGenres} = require('../services/genreService');
 
 const getWatchlistByID = async (req, res) => {
     const userId = req.params.userId;
     try {
-    const userExists = await db.query("SELECT id FROM users WHERE id = $1", [userId]);
-    if (userExists.rowCount === 0) {
-        return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
-    }
-
-    const userWatchlist = await db.query('SELECT * FROM watchlist WHERE user_id = $1', [userId]);
-    return res.status(200).json({userId, watchlist: userWatchlist.rows});
+        const isUserValid = await userExists(userId)
+        if (!isUserValid) {
+            return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
+        }
+        const userWatchlist = await getWatchlist(userId);
+        return res.status(200).json({userId, watchlist: userWatchlist.rows});
     } catch (err) {
         console.log(err);
         return res.status(500).json({"message": "Error when attempting to retrieve from database"});
@@ -19,12 +20,11 @@ const getWatchlistByID = async (req, res) => {
 const getSeenByID = async (req, res) => {
     const userId = req.params.userId;
     try {
-    const userExists = await db.query("SELECT id FROM users WHERE id = $1", [userId]);
-    if (userExists.rowCount === 0) {
-        return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
-    }
-
-    const userSeen = await db.query('SELECT * FROM movies_seen WHERE user_id = $1', [userId]);
+        const isUserValid = await userExists(userId)
+        if (!isUserValid) {
+            return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
+        }
+    const userSeen = await getSeenlist(userId);
     return res.status(200).json({userId, seen: userSeen.rows});
     } catch (err) {
         console.log(err);
@@ -32,4 +32,31 @@ const getSeenByID = async (req, res) => {
     }
 };
 
-module.exports = {getWatchlistByID, getSeenByID};
+const getUserByID = async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const isUserValid = await userExists(userId)
+        if (!isUserValid) {
+            return res.status(404).json({"message": `User with ID ${userId} does not exist.`});
+        }
+        const userSeen = await getSeenlist(userId);
+        const userWatchlist = await getWatchlist(userId);
+        const stats = {
+            total_movies_watched: userSeen.rowCount,
+            total_movies_watchlisted: userWatchlist.rowCount,
+            average_rating: await getAverageRating(userSeen.rows)
+        }
+        const response = {
+            userId,
+            stats,
+            watchlist: userWatchlist.rows,
+            seen: userSeen.rows,
+        }
+        return res.status(200).json(response);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({"message": "Error when attempting to retrieve user summary from database"})
+    }
+};
+
+module.exports = {getWatchlistByID, getSeenByID, getUserByID};

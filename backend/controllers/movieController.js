@@ -3,6 +3,7 @@ const searchAPI = require('../services/searchAPI');
 const db = require('../db');
 const {cacheMovie} = require('../services/cacheMovie');
 const {limiter} = require('../services/apiLimiter');
+const { getGenres } = require('../services/genreService');
 
 const handleGetMovie = async (req, res) => {
     try {
@@ -12,7 +13,7 @@ const handleGetMovie = async (req, res) => {
 
         const movieIdQuery = await db.query('SELECT * FROM movie WHERE id = $1', [req.params.id]);
         if (movieIdQuery.rowCount > 0) {
-            const genresResult = await db.query('SELECT genre_id FROM movie_genre WHERE movie_id = $1', [req.params.id]);
+            const genresResult = await getGenres(req.params.id)
             const movie = {...movieIdQuery.rows[0], genres: genresResult.rows.map(g => {
                 return {id: g.genre_id};
             })};

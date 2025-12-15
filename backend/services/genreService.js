@@ -1,3 +1,5 @@
+const db = require('../db')
+
 const addMovieGenres = async (movie, client) => {
     const {genres} = movie;
     const genreIds = genres.map(genre => genre.id);
@@ -10,4 +12,8 @@ const addMovieGenres = async (movie, client) => {
     }
 };
 
-module.exports = {addMovieGenres}
+const getGenres = async (movieId) => {
+    return await db.query('SELECT genre_id FROM movie_genre WHERE movie_id = $1', [movieId]);
+}
+
+module.exports = {addMovieGenres, getGenres}

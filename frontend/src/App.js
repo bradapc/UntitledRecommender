@@ -17,6 +17,7 @@ import Footer from './Footer';
 import About from './About';
 import TMDB from './TMDB';
 import Terms from './Terms';
+import User from './User';
 
 function App() {
   const {apiUrl} = useContext(DataContext);
@@ -57,6 +58,7 @@ function App() {
               <Route path='/about' element={<About />} />
               <Route path='/tmdb' element={<TMDB />} />
               <Route path='/terms' element={<Terms />} />
+              <Route path='/user/:id' element={<User />} />
             </Routes>
             <Footer />
           </Router>
