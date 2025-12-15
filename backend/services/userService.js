@@ -28,4 +28,10 @@ const getAverageRating = async (seenList) => {
     return (rating / count).toFixed(1);
 }
 
-module.exports = {userExists, getWatchlist, getSeenlist, getAverageRating}
+const getUsernameByID = async (userId) => {
+    result = await db.query('SELECT username FROM users WHERE id = $1', [userId]);
+    const username = result?.rows[0]?.username || null;
+    return username;
+}
+
+module.exports = {userExists, getWatchlist, getSeenlist, getAverageRating, getUsernameByID}

@@ -1,0 +1,25 @@
+.UserStats {
+    display: flex;
+    gap: 16px;
+}
+
+.Username {
+    text-align: center;
+}
+
+.UserStatContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+    background-color: #414446;
+    border-radius: 32px;
+    width: 20vw;
+    text-align: center;
+    user-select: none;
+}
+
+.UserDataStat {
+    font-size: 2.5rem;
+    color: #33aaff;
+}

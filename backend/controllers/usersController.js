@@ -1,6 +1,5 @@
 const db = require('../db');
-const {userExists, getWatchlist, getSeenlist, getAverageRating} = require('../services/userService')
-const {getGenres} = require('../services/genreService');
+const {userExists, getWatchlist, getSeenlist, getAverageRating, getUsernameByID} = require('../services/userService')
 
 const getWatchlistByID = async (req, res) => {
     const userId = req.params.userId;
@@ -46,8 +45,10 @@ const getUserByID = async (req, res) => {
             total_movies_watchlisted: userWatchlist.rowCount,
             average_rating: await getAverageRating(userSeen.rows)
         }
+        const username = await getUsernameByID(userId);
         const response = {
             userId,
+            username,
             stats,
             watchlist: userWatchlist.rows,
             seen: userSeen.rows,

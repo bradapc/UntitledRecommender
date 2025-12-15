@@ -1,5 +1,5 @@
 const db = require('../db');
-const {addMovieGenres} = require('./genreService');
+const {addMovieGenres} = require('./addMovieGenres');
 const {addMovieCast} = require('./addMovieCast');
 
 const cacheMovie = async (movieResult) => {
