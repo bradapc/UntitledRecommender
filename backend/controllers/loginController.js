@@ -30,7 +30,9 @@ const handleLogin = async (req, res) => {
         maxAge: 3600000,
         path: '/'
     });
-    return res.status(200).json({"message": "User log in successful"});
+    return res.status(200).json({"message": "User log in successful",
+        "userId": user.rows[0].id
+    });
 }
 
 module.exports = {handleLogin};

@@ -5,7 +5,7 @@ import {DataContext} from './context/DataContext';
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {
-    const {apiUrl} = useContext(DataContext);
+    const {apiUrl, setCurrentUserId} = useContext(DataContext);
     const {isAuth, setIsAuth} = useContext(DataContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -29,10 +29,12 @@ const Login = () => {
           body: JSON.stringify({username, password})
         };
         const response = await fetch(`${apiUrl}/login`, postOptions);
+        const resJson = await response.json()
         if (!response.ok) {
           setErrorStatus(response.status);
         } else {
           setIsAuth(true);
+          setCurrentUserId(resJson.userId)
           navigate(-1);
         }
     };
